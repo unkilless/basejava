@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ArrayStorage {
-    // field Map<String, Object>
+    private Resume[] resumes = new Resume[100];
+    private int pos = 0;
 
     public void ShowMap(Map WathedMap){
         int i = 1;
@@ -58,6 +59,15 @@ public class ArrayStorage {
     // get
     // update
     // delete
+
+    public Resume get(int id) {
+        for (int i = 0; i < pos; i++) {
+            if (resumes[i].getId() == id) {
+                return resumes[i];
+            }
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         Map<Integer, String> MyBase = new HashMap<Integer, String>();
