@@ -65,6 +65,15 @@ public class ArrayStorage {
     // update
     // delete
 
+    public Resume get(int id) {
+        for (int i = 0; i < pos; i++) {
+            if (resumes[i].getId() == id) {
+                return resumes[i];
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         Map<Integer, String> MyBase = new HashMap<Integer, String>();
         ArrayStorage MyArray = new ArrayStorage();
