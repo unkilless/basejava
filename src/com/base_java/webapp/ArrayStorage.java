@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ArrayStorage {
-    // field Map<String, Object>
+    private Resume[] resumes = new Resume[100];
+    private int pos = 0;
 
     public void ShowMap(Map WathedMap){
         int i = 1;
@@ -44,6 +45,11 @@ public class ArrayStorage {
         }catch(IOException ex){
             System.out.println("Bad path");
         }
+    }
+
+    public void save(String fullName) {
+        Resume resume = new Resume(fullName);
+        resumes[pos++] = resume;
     }
 
     public void InsertToEnd (Map WatchedMap, String NewData){
