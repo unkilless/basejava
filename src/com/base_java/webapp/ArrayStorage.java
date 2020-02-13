@@ -6,8 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ArrayStorage {
-    private Resume[] resumes = new Resume[100];
-    private int pos = 0;
+    static int MAX_LENGHT = 10000;
+    private Resume[] resumes = new Resume[MAX_LENGHT];
+
+    private int size = 0;
 
     public void ShowMap(Map<Integer, String> WathedMap) {
         /*int i = 1;
@@ -51,11 +53,6 @@ public class ArrayStorage {
         }
     }
 
-    public void save(String fullName) {
-        Resume resume = new Resume(fullName);
-        resumes[pos++] = resume;
-    }
-
     public void InsertToEnd(Map WatchedMap, String NewData) {
         WatchedMap.put(WatchedMap.size() + 1, NewData);
     }
@@ -70,31 +67,33 @@ public class ArrayStorage {
                 .sorted(Map.Entry.comparingByValue())
                 .forEach(System.out::println);
     }
+
     // save
     // get
     // update
     // delete
 
-    public Resume get(int id) {
-        for (int i = 0; i < pos; i++) {
-            if (resumes[i].getId() == id) {
-                return resumes[i];
-            }
-        }
-        return null;
+
+    public void print() {
+        if (size != 0)
+            for (int i = 0; i <= size; i++)
+                System.out.println(resumes[i].toString());
     }
+
+    public int sizeOfArray() {
+        return size;
+    }
+
+    public void input(String inputStr) {
+        resumes[size] = new Resume(inputStr);
+        size++;
+    }
+
 
     public static void main(String[] args) {
         Map<Integer, String> MyBase = new HashMap<Integer, String>();
         ArrayStorage MyArray = new ArrayStorage();
-        MyBase.put(1, "Ivan");
-        MyBase.put(2, "Feodor");
-        MyBase.put(3, "Anatoli Petrovich");
-        MyArray.ShowMap(MyBase);
-        MyArray.InsertToEnd(MyBase, "Evgen");
-        MyArray.ShowMap(MyBase);
-        //MyArray.ClearMap(MyBase);
-        //MyArray.ShowMap(MyBase);
-        MyArray.sortingMap(MyBase);
+        MyArray.input("Jopa");
+        System.out.println(MyArray.resumes[0].getFullName());
     }
 }
