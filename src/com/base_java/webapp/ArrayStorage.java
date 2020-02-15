@@ -79,8 +79,11 @@ public class ArrayStorage {
     }
 
     public void input(String inputStr, int passID) {
-        resumes[size] = new Resume(inputStr, passID);
-        size++;
+        if (getByID(passID) == "NO_DATA") {
+            resumes[size] = new Resume(inputStr, passID);
+            size++;
+        } else
+            System.out.println("Same ID. Can't allowed enter this info");
     }
 
     public void printAll() {
@@ -99,22 +102,25 @@ public class ArrayStorage {
     }
 
     public void deleteByID(int ID) {
-        if (size > 1 && getByID(ID) != "NO_DATA") {
+        boolean f_finded = false;
+        if (size > 1) {
             for (int i = 0; i < size; i++) {
                 if (resumes[i].getId() == ID) {
                     if (i != size - 1) {
                         resumes[i].setFullName(resumes[size - 1].getFullName());
                         resumes[i].setId(resumes[size - 1].getId());
                         size--;
+                        f_finded = true;
                     } else {
                         resumes[i].setFullName(null);
                         resumes[i].setId(0);
                         size--;
+                        f_finded = true;
                     }
                 }
             }
-        }else
-            deleteAll();
+        }
+        if (!f_finded) System.out.println("Not found any person with this id");
     }
 
     public void deleteAll() {
@@ -144,13 +150,14 @@ public class ArrayStorage {
         System.out.println(MyArray.getByID(37));
         System.out.println(MyArray.sizeOfArray());
         //MyArray.deleteByID(37);
-        //MyArray.deleteByID(113);
+        MyArray.deleteByID(13);
+        MyArray.input("German", 37);
         //MyArray.deleteAll();
         MyArray.printAll();
         //MyArray.deleteByID(256);
         //System.out.println(MyArray.getByID(222));
-        System.out.println(MyArray.getIdByValue("Ivan"));
-        System.out.println(MyArray.getIdByValue("Eugen"));
+        //System.out.println(MyArray.getIdByValue("Ivan"));
+        //System.out.println(MyArray.getIdByValue("Eugen"));
 
     }
 }
