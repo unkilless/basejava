@@ -4,9 +4,9 @@ public class Resume {
     private int id;
     private String fullName;
 
-    public Resume(String fullName) {
+    public Resume(String fullName, int id) {
         this.fullName = fullName;
-        this.id++;
+        this.id = id;
     }
 
     public int getId() {
