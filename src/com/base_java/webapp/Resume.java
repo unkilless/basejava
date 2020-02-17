@@ -1,12 +1,16 @@
 package com.base_java.webapp;
 
 public class Resume {
-    private int id;
+    private static int counter = 0;
+    private int id = counter++;
     private String fullName;
+
+    public Resume(String fullName) {
+        this.fullName = fullName;
+    }
 
     public Resume(String fullName, int id) {
         this.fullName = fullName;
-        this.id = id;
     }
 
     public int getId() {
@@ -24,4 +28,6 @@ public class Resume {
     public String getFullName() {
         return fullName;
     }
+
+
 }

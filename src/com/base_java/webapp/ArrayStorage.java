@@ -2,6 +2,8 @@ package com.base_java.webapp;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,61 +80,47 @@ public class ArrayStorage {
         return size;
     }
 
-    public void input(String inputStr, int passID) {
-        if (getByID(passID) == "NO_DATA") {
-            resumes[size] = new Resume(inputStr, passID);
-            size++;
-        } else
-            System.out.println("Same ID. Can't allowed enter this info");
+    public void save(String inputStr, int passID) {
+        resumes[size] = new Resume(inputStr, passID);
+        size++;
     }
 
-    public void printAll() {
-        for (int i = 0; i < size; i++)
-            System.out.println("ID: " + resumes[i].getId() + " Data: " + resumes[i].getFullName() + ";");
+    public Resume[] getAll() {
+        return Arrays.copyOf(resumes, size);
     }
 
-    public String getByID(int ID) {
-        if (size != 0) {
-            for (int i = 0; i < size; i++) {
-                if (resumes[i].getId() == ID)
-                    return resumes[i].getFullName();
-            }
+    public Resume getByID(int ID) {
+        for (int i = 0; i < size; i++) {
+            if (resumes[i].getId() == ID)
+                return resumes[i];
         }
-        return "NO_DATA";
+        return null;
     }
 
     public void deleteByID(int ID) {
-        boolean f_finded = false;
         if (size > 1) {
             for (int i = 0; i < size; i++) {
                 if (resumes[i].getId() == ID) {
                     if (i != size - 1) {
-                        resumes[i].setFullName(resumes[size - 1].getFullName());
-                        resumes[i].setId(resumes[size - 1].getId());
+                        resumes[i] = resumes[size - 1];
+                        resumes[size - 1] = null;
                         size--;
-                        f_finded = true;
-                    } else {
-                        resumes[i].setFullName(null);
-                        resumes[i].setId(0);
-                        size--;
-                        f_finded = true;
                     }
                 }
             }
         }
-        if (!f_finded) System.out.println("Not found any person with this id");
     }
+
 
     public void deleteAll() {
         for (int i = 0; i < size; i++) {
-            resumes[i].setId(0);
-            resumes[i].setFullName(null);
+            resumes[i] = null;
         }
         size = 0;
     }
 
-    public int getIdByValue(String findingStr){
-        for (int i = 0; i < size; i++){
+    public int getIdByValue(String findingStr) {
+        for (int i = 0; i < size; i++) {
             if (resumes[i].getFullName() == findingStr)
                 return resumes[i].getId();
         }
@@ -142,22 +130,6 @@ public class ArrayStorage {
     public static void main(String[] args) {
         Map<Integer, String> MyBase = new HashMap<Integer, String>();
         ArrayStorage MyArray = new ArrayStorage();
-        int IDs = 0;
-        MyArray.input("Ivan", 113);
-        MyArray.input("Peotr", 256);
-        MyArray.input("Max", 37);
-        //MyArray.printAll();
-        System.out.println(MyArray.getByID(37));
-        System.out.println(MyArray.sizeOfArray());
-        //MyArray.deleteByID(37);
-        MyArray.deleteByID(13);
-        MyArray.input("German", 37);
-        //MyArray.deleteAll();
-        MyArray.printAll();
-        //MyArray.deleteByID(256);
-        //System.out.println(MyArray.getByID(222));
-        //System.out.println(MyArray.getIdByValue("Ivan"));
-        //System.out.println(MyArray.getIdByValue("Eugen"));
 
     }
 }
