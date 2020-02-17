@@ -2,12 +2,12 @@ package com.base_java.webapp;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class ArrayStorage {
+    private static Logger logger = Logger.getLogger(ArrayStorage.class.getName());
     static int MAX_LENGHT = 10000;
     private Resume[] resumes = new Resume[MAX_LENGHT];
 
@@ -81,8 +81,11 @@ public class ArrayStorage {
     }
 
     public void save(String inputStr, int passID) {
-        resumes[size] = new Resume(inputStr, passID);
-        size++;
+        if (size < MAX_LENGHT - 1) {
+            resumes[size] = new Resume(inputStr, passID);
+            logger.info("Резюме создано: " + resumes[size]);
+            size++;
+        }
     }
 
     public Resume[] getAll() {
@@ -128,8 +131,7 @@ public class ArrayStorage {
     }
 
     public static void main(String[] args) {
-        Map<Integer, String> MyBase = new HashMap<Integer, String>();
-        ArrayStorage MyArray = new ArrayStorage();
-
+//        Map<Integer, String> MyBase = new HashMap<Integer, String>();
+//        ArrayStorage MyArray = new ArrayStorage();
     }
 }
