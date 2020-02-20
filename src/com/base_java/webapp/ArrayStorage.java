@@ -81,16 +81,15 @@ public class ArrayStorage {
     }
 
     public void update(Resume resumeForUpd) {
-        int index = find(resumeForUpd);
+        int index = find(resumeForUpd.getId());
         if (index != -1) {
             resumes[index].setFullName(resumeForUpd.getFullName());
         }
     }
 
-    public int find(Resume resumeForUpd) {
-        Integer bufferId = resumeForUpd.getId();
+    public int find(Integer findingId) {
         for (int i = 0; i < size; i++) {
-            if (bufferId.equals(resumes[i].getId()))
+            if (findingId.equals(resumes[i].getId()))
                 return i;
         }
         return -1;
@@ -98,7 +97,7 @@ public class ArrayStorage {
 
 
     public void save(String inputStr, int passID) {
-        if (size < MAX_LENGHT - 1) {
+        if (size < MAX_LENGHT - 1 && find(passID) == -1) {
             resumes[size] = new Resume(inputStr, passID);
             logger.info("Резюме создано: " + resumes[size].getFullName());
             size++;
@@ -109,17 +108,17 @@ public class ArrayStorage {
         return Arrays.copyOf(resumes, size);
     }
 
-    public Resume getByID(int ID) {
+    public Resume getByID(Integer ID) {
         for (int i = 0; i < size; i++) {
-            if (resumes[i].getId() == ID)
+            if (ID.equals(resumes[i].getId()))
                 return resumes[i];
         }
         return null;
     }
 
-    public void deleteByID(int ID) {
+    public void deleteByID(Integer ID) {
         for (int i = 0; i < size; i++) {
-            if (resumes[i].getId() == ID) {
+            if (ID.equals(resumes[i].getId())) {
                 resumes[i] = resumes[size - 1];
                 resumes[size - 1] = null;
                 size--;
