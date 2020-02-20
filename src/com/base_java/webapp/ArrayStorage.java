@@ -80,10 +80,27 @@ public class ArrayStorage {
         return size;
     }
 
+    public void update(Resume resumeForUpd) {
+        int index = find(resumeForUpd);
+        if (index != -1) {
+            resumes[index].setFullName(resumeForUpd.getFullName());
+        }
+    }
+
+    public int find(Resume resumeForUpd) {
+        Integer bufferId = resumeForUpd.getId();
+        for (int i = 0; i < size; i++) {
+            if (bufferId.equals(resumes[i].getId()))
+                return i;
+        }
+        return -1;
+    }
+
+
     public void save(String inputStr, int passID) {
         if (size < MAX_LENGHT - 1) {
             resumes[size] = new Resume(inputStr, passID);
-            logger.info("Резюме создано: " + resumes[size]);
+            logger.info("Резюме создано: " + resumes[size].getFullName());
             size++;
         }
     }
@@ -101,24 +118,20 @@ public class ArrayStorage {
     }
 
     public void deleteByID(int ID) {
-        if (size > 1) {
-            for (int i = 0; i < size; i++) {
-                if (resumes[i].getId() == ID) {
-                    if (i != size - 1) {
-                        resumes[i] = resumes[size - 1];
-                        resumes[size - 1] = null;
-                        size--;
-                    }
-                }
+        for (int i = 0; i < size; i++) {
+            if (resumes[i].getId() == ID) {
+                resumes[i] = resumes[size - 1];
+                resumes[size - 1] = null;
+                size--;
             }
         }
     }
-
 
     public void deleteAll() {
         for (int i = 0; i < size; i++) {
             resumes[i] = null;
         }
+        //Arrays.fill(resumes, null);
         size = 0;
     }
 
@@ -132,6 +145,20 @@ public class ArrayStorage {
 
     public static void main(String[] args) {
 //        Map<Integer, String> MyBase = new HashMap<Integer, String>();
-//        ArrayStorage MyArray = new ArrayStorage();
+        ArrayStorage MyArray = new ArrayStorage();
+        MyArray.save("Ivan", 123);
+        MyArray.save("Feodor", 127);
+        MyArray.save("Peotr", 37);
+
+        for (int j = 0; j < MyArray.sizeOfArray(); j++) {
+            System.out.println("ID: " + MyArray.resumes[j].getId() + "; Name: " + MyArray.resumes[j].getFullName() + ";");
+        }
+
+        Resume r = new Resume("Jenya", 127);
+        MyArray.update(r);
+
+        for (int j = 0; j < MyArray.sizeOfArray(); j++) {
+            System.out.println("ID: " + MyArray.resumes[j].getId() + "; Name: " + MyArray.resumes[j].getFullName() + ";");
+        }
     }
 }

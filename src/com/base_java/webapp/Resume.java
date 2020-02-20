@@ -11,6 +11,7 @@ public class Resume {
 
     public Resume(String fullName, int id) {
         this.fullName = fullName;
+        this.id = id;
     }
 
     public int getId() {
