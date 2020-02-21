@@ -109,21 +109,22 @@ public class ArrayStorage {
     }
 
     public Resume getByID(Integer ID) {
-        for (int i = 0; i < size; i++) {
-            if (ID.equals(resumes[i].getId()))
-                return resumes[i];
+        Integer index = find(ID);
+        if (index != -1) {
+            if (ID.equals(resumes[index].getId()))
+                return resumes[index];
         }
         return null;
     }
 
     public void deleteByID(Integer ID) {
-        for (int i = 0; i < size; i++) {
-            if (ID.equals(resumes[i].getId())) {
-                resumes[i] = resumes[size - 1];
+        Integer index = find(ID);
+            if (index != -1) {
+                resumes[index] = resumes[size - 1];
                 resumes[size - 1] = null;
                 size--;
             }
-        }
+
     }
 
     public void deleteAll() {
@@ -159,5 +160,8 @@ public class ArrayStorage {
         for (int j = 0; j < MyArray.sizeOfArray(); j++) {
             System.out.println("ID: " + MyArray.resumes[j].getId() + "; Name: " + MyArray.resumes[j].getFullName() + ";");
         }
+
+        MyArray.deleteByID(37);
+        System.out.println(MyArray.getByID(37).getFullName());
     }
 }
