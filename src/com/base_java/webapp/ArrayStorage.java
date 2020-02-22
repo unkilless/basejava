@@ -75,7 +75,6 @@ public class ArrayStorage {
     // update
     // delete
 
-
     public int sizeOfArray() {
         return size;
     }
