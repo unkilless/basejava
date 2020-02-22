@@ -1,9 +1,6 @@
 package com.base_java.webapp;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.logging.Logger;
 
 public class ArrayStorage {
@@ -12,68 +9,6 @@ public class ArrayStorage {
     private Resume[] resumes = new Resume[MAX_LENGHT];
 
     private static int size = 0;
-
-    public void ShowMap(Map<Integer, String> WathedMap) {
-        /*int i = 1;
-        while (i <= WathedMap.size()){
-            System.out.println(WathedMap.get(i));
-            i++;
-        }*/
-        int UID;
-        for (Map.Entry<Integer, String> current : WathedMap.entrySet()) {
-            System.out.println("Checked");
-        }
-    }
-
-    public String GetByID(Map WatchedMap, int ID) throws IOException {
-        if (ID > 0 || ID < WatchedMap.size())
-            return WatchedMap.get(ID).toString();
-        else {
-            return "Illegal ID";
-        }
-    }
-
-    public void DeleteByID(Map WatchedMap, int ID) {
-        if (ID > 0 || ID < WatchedMap.size()) {
-            WatchedMap.remove(ID);
-            System.out.println("Element with ID: " + ID + " was deleted");
-        } else {
-            System.out.println("Incorrect ID");
-        }
-    }
-
-    public void PrintToFile(Map WathedMap, String PATH) throws IOException {
-        int i = 1;
-        try {
-            FileWriter OutputFile = new FileWriter(PATH, true);
-            while (i <= WathedMap.size()) {
-                OutputFile.write(WathedMap.get(i).toString());
-            }
-            OutputFile.close();
-        } catch (IOException ex) {
-            System.out.println("Bad path");
-        }
-    }
-
-    public void InsertToEnd(Map WatchedMap, String NewData) {
-        WatchedMap.put(WatchedMap.size() + 1, NewData);
-    }
-
-    public void ClearMap(Map WatchedMap) {
-        WatchedMap.clear();
-        System.out.println("Your base is empty now");
-    }
-
-    public void sortingMap(Map<Integer, String> WatchedMap) {
-        WatchedMap.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
-                .forEach(System.out::println);
-    }
-
-    // save
-    // get
-    // update
-    // delete
 
     public int sizeOfArray() {
         return size;
@@ -95,9 +30,9 @@ public class ArrayStorage {
     }
 
 
-    public void save(String inputStr, int passID) {
-        if (size < MAX_LENGHT - 1 && find(passID) == -1) {
-            resumes[size] = new Resume(inputStr, passID);
+    public void save(Resume savingResume) {
+        if (size < MAX_LENGHT - 1 && find(savingResume.getId()) == -1) {
+            resumes[size] = savingResume;
             logger.info("Резюме создано: " + resumes[size].getFullName());
             size++;
         }
@@ -145,9 +80,14 @@ public class ArrayStorage {
     public static void main(String[] args) {
 //        Map<Integer, String> MyBase = new HashMap<Integer, String>();
         ArrayStorage MyArray = new ArrayStorage();
-        MyArray.save("Ivan", 123);
-        MyArray.save("Feodor", 127);
-        MyArray.save("Peotr", 37);
+        Resume newResumeRecord = new Resume("Ivan", 123);
+        MyArray.save(newResumeRecord);
+        newResumeRecord.setFullName("Feodor");
+        newResumeRecord.setId(127);
+        MyArray.save(newResumeRecord);
+        newResumeRecord.setFullName("Peotr");
+        newResumeRecord.setId(37);
+        MyArray.save(newResumeRecord);
 
         for (int j = 0; j < MyArray.sizeOfArray(); j++) {
             System.out.println("ID: " + MyArray.resumes[j].getId() + "; Name: " + MyArray.resumes[j].getFullName() + ";");

@@ -25,3 +25,6 @@ hs_err_pid*
 # idea
 *.iml
 .idea/
+out/
+
+/src/com/base_java/webapp/ExampleCode.java
