@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class ArrayStorage {
+    private static final int RESUME_NOT_FOUND = -1;
     private static Logger logger = Logger.getLogger(ArrayStorage.class.getName());
     static int MAX_LENGHT = 10000;
     private Resume[] resumes = new Resume[MAX_LENGHT];
@@ -16,7 +17,7 @@ public class ArrayStorage {
 
     public void update(Resume resumeForUpd) {
         int index = find(resumeForUpd.getId());
-        if (index != -1) {
+        if (index != RESUME_NOT_FOUND) {
             resumes[index].setFullName(resumeForUpd.getFullName());
         }
     }
@@ -77,30 +78,4 @@ public class ArrayStorage {
         return -1;
     }
 
-    public static void main(String[] args) {
-//        Map<Integer, String> MyBase = new HashMap<Integer, String>();
-        ArrayStorage MyArray = new ArrayStorage();
-        Resume newResumeRecord = new Resume("Ivan", 123);
-        MyArray.save(newResumeRecord);
-        newResumeRecord.setFullName("Feodor");
-        newResumeRecord.setId(127);
-        MyArray.save(newResumeRecord);
-        newResumeRecord.setFullName("Peotr");
-        newResumeRecord.setId(37);
-        MyArray.save(newResumeRecord);
-
-        for (int j = 0; j < MyArray.sizeOfArray(); j++) {
-            System.out.println("ID: " + MyArray.resumes[j].getId() + "; Name: " + MyArray.resumes[j].getFullName() + ";");
-        }
-
-        Resume r = new Resume("Jenya", 127);
-        MyArray.update(r);
-
-        for (int j = 0; j < MyArray.sizeOfArray(); j++) {
-            System.out.println("ID: " + MyArray.resumes[j].getId() + "; Name: " + MyArray.resumes[j].getFullName() + ";");
-        }
-
-        MyArray.deleteByID(37);
-        System.out.println(MyArray.getByID(37).getFullName());
-    }
 }
