@@ -2,9 +2,9 @@ package com.base_java.webapp.Model;
 
 import java.util.Objects;
 
-public class Resume {
+public class Resume implements Comparable<Resume> {
     private static int counter = 0;
-    private int id = counter++;
+    private Integer id = counter++;
     private String fullName;
 
     public Resume(String fullName) {
@@ -51,5 +51,12 @@ public class Resume {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public int compareTo(Resume o) {
+        if (id.equals(o.id)) return 0;
+        if (id > o.id) return -1;
+        else return 1;
     }
 }

@@ -8,7 +8,7 @@ public abstract class AbstractArrayStorage implements Storage {
     protected static final int RESUME_NOT_FOUND = -1;
     protected static Logger logger = Logger.getLogger(ArrayStorage.class.getName());
     protected static final int MAX_LENGTH = 10000;
-    protected Resume[] resumes = new Resume[MAX_LENGTH];
+    public Resume[] resumes = new Resume[MAX_LENGTH];
     protected static int size = 0;
 
     public int sizeOfArray() {
