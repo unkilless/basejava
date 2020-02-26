@@ -1,5 +1,8 @@
 package com.base_java.webapp;
 
+import com.base_java.webapp.Model.Resume;
+import com.base_java.webapp.Storage.ArrayStorage;
+
 public class MainTestArrayStorage {
 
     public static void main(String[] args) {

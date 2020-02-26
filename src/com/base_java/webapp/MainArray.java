@@ -1,19 +1,27 @@
 package com.base_java.webapp;
 
+import com.base_java.webapp.Model.Resume;
+import com.base_java.webapp.Storage.ArrayStorage;
+import com.base_java.webapp.Storage.Storage;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainArray {
 
+    private static Storage MyArray = new ArrayStorage();
+
     public static void main(String[] args) {
-        ArrayStorage MyArray = new ArrayStorage();
         Resume[] resumes = new Resume[10000];
         Scanner input = new Scanner(System.in);
         String bufferedFullName = "";
         int bufferedID = 0;
-        int command;
+        int command = 7;
+
+        System.out.println("//Enter menu command:");
 
         while (true) {
-            System.out.println("//Enter menu command:");
+
             System.out.println("1: save; \n" +
                     "2: print all; \n" +
                     "3: delete by ID; \n" +
@@ -21,7 +29,12 @@ public class MainArray {
                     "5: get by ID; \n" +
                     "6: count database; \n" +
                     "0: exit");
-            command = input.nextInt();
+            try {
+                command = input.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Incorrect input symbols." + e.getLocalizedMessage() + " Try one more");
+                input.nextLine();
+            }
 //--------------------------------------------------------------------
             switch (command) {
                 case (0):
@@ -48,8 +61,6 @@ public class MainArray {
 
                     Resume newResume = new Resume(bufferedFullName, bufferedID);
                     MyArray.save(newResume);
-
-                    System.out.println("Resume is added!" + MyArray.sizeOfArray());
                     break;
 //--------------------------------------------------------------------
                 case (2):

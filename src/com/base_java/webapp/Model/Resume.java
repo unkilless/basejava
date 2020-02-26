@@ -1,4 +1,6 @@
-package com.base_java.webapp;
+package com.base_java.webapp.Model;
+
+import java.util.Objects;
 
 public class Resume {
     private static int counter = 0;
@@ -30,5 +32,24 @@ public class Resume {
         return fullName;
     }
 
+    @Override
+    public String toString() {
+        return "Resume{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Resume resume = (Resume) o;
+        return id == resume.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
