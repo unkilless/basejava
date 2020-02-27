@@ -14,9 +14,10 @@ public class MainArray {
     public static void main(String[] args) {
         Resume[] resumes = new Resume[10000];
         Scanner input = new Scanner(System.in);
+        Resume newResume;
         String bufferedFullName = "";
         int bufferedID = 0;
-        int command = 7;
+        int command = 8;
 
         System.out.println("//Enter menu command:");
 
@@ -28,6 +29,7 @@ public class MainArray {
                     "4: delete all resumes; \n" +
                     "5: get by ID; \n" +
                     "6: count database; \n" +
+                    "7: update by value \n" +
                     "0: exit");
             try {
                 command = input.nextInt();
@@ -59,7 +61,7 @@ public class MainArray {
                             correctInput = true;
                     }
 
-                    Resume newResume = new Resume(bufferedFullName, bufferedID);
+                    newResume = new Resume(bufferedFullName, bufferedID);
                     MyArray.save(newResume);
                     break;
 //--------------------------------------------------------------------
@@ -92,6 +94,23 @@ public class MainArray {
 //--------------------------------------------------------------------
                 case (6):
                     System.out.println("Record's count is " + MyArray.sizeOfArray());
+                    break;
+//--------------------------------------------------------------------
+                case (7):
+                    System.out.println("Pls enter resume ID:");
+                    bufferedID = input.nextInt();
+                    boolean correctInputUpd = false;
+                    while (correctInputUpd != true) {
+                        System.out.println("Pls input new fullname:");
+                        bufferedFullName = input.next().toString();
+                        if (!bufferedFullName.trim().isEmpty()) {
+                            bufferedFullName.trim().toLowerCase();
+                            if (bufferedFullName.matches("[a-z]+"))
+                                correctInputUpd = true;
+                        }
+                    }
+                    newResume = new Resume(bufferedFullName, bufferedID);
+                    MyArray.update(newResume);
                     break;
 //--------------------------------------------------------------------
                 default:
