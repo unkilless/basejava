@@ -18,5 +18,5 @@ public interface Storage {
 
     void deleteAll();
 
-    int getIdByValue(String findingStr);
+    int[] getIdByValue(String findingStr);
 }

@@ -16,12 +16,22 @@ public class MainTestArrayStorage {
         myArray.save(newResumeRecord);
         newResumeRecord = new Resume("sanya", 69);
         myArray.save(newResumeRecord);
+        newResumeRecord = new Resume("jopa", 79);
+        myArray.save(newResumeRecord);
 
-        Resume searchKey = new Resume("gena", 67);
+        Resume searchKey = new Resume("gena", 79);
         System.out.println(Arrays.binarySearch(myArray.resumes, 0, myArray.sizeOfArray(), searchKey));
 
         Resume outResumeRecord;
-        outResumeRecord = myArray.getByID(66);
+        outResumeRecord = myArray.getByID(69);
         System.out.println(outResumeRecord.getFullName() + " by " + outResumeRecord.getId());
+
+        int[] resultGetByValue = new int[myArray.sizeOfArray()];
+        resultGetByValue = myArray.getIdByValue("Ivan");
+        for (int i : resultGetByValue) {
+            if (i != 0)
+                System.out.println(i + "; ");
+        }
+        System.out.println();
     }
 }

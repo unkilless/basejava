@@ -7,10 +7,6 @@ public class Resume implements Comparable<Resume> {
     private Integer id = counter++;
     private String fullName;
 
-    public Resume(String fullName) {
-        this.fullName = fullName;
-    }
-
     public Resume(String fullName, int id) {
         this.fullName = fullName;
         this.id = id;
@@ -45,7 +41,7 @@ public class Resume implements Comparable<Resume> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
-        return id == resume.id;
+        return id.equals(resume.id);
     }
 
     @Override
@@ -55,8 +51,6 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int compareTo(Resume o) {
-        if (id.equals(o.id)) return 0;
-        if (id > o.id) return -1;
-        else return 1;
+        return id.compareTo(o.id);
     }
 }
