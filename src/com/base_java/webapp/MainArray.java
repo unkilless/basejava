@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class MainArray {
 
-    private static Storage MyArray = new ArrayStorage();
+    private static Storage myArray = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume[] resumes = new Resume[10000];
@@ -62,38 +62,38 @@ public class MainArray {
                     }
 
                     newResume = new Resume(bufferedFullName, bufferedID);
-                    MyArray.save(newResume);
+                    myArray.save(newResume);
                     break;
 //--------------------------------------------------------------------
                 case (2):
-                    resumes = MyArray.getAll();
+                    resumes = myArray.getAll();
                     System.out.println("List of resumes:");
-                    for (int j = 0; j < MyArray.sizeOfArray(); j++)
+                    for (int j = 0; j < myArray.sizeOfArray(); j++)
                         System.out.println("ID: " + resumes[j].getId() + " Name: " + resumes[j].getFullName() + ";");
                     break;
 //--------------------------------------------------------------------
                 case (3):
                     System.out.println("Pls enter resume ID:");
                     bufferedID = input.nextInt();
-                    MyArray.deleteByID(bufferedID);
+                    myArray.deleteByID(bufferedID);
                     break;
 //--------------------------------------------------------------------
                 case (4):
-                    MyArray.deleteAll();
+                    myArray.deleteAll();
                     System.out.println("Database is empty");
                     break;
 //--------------------------------------------------------------------
                 case (5):
                     System.out.println("Pls enter resume ID:");
                     bufferedID = input.nextInt();
-                    if (MyArray.getByID(bufferedID) != null)
-                        System.out.println("Your record: \n ID: " + MyArray.getByID(bufferedID).getId() + " Name: " + MyArray.getByID(bufferedID).getFullName());
+                    if (myArray.getByID(bufferedID) != null)
+                        System.out.println("Your record: \n ID: " + myArray.getByID(bufferedID).getId() + " Name: " + myArray.getByID(bufferedID).getFullName());
                     else
                         System.out.println("Record not exist!");
                     break;
 //--------------------------------------------------------------------
                 case (6):
-                    System.out.println("Record's count is " + MyArray.sizeOfArray());
+                    System.out.println("Record's count is " + myArray.sizeOfArray());
                     break;
 //--------------------------------------------------------------------
                 case (7):
@@ -110,7 +110,7 @@ public class MainArray {
                         }
                     }
                     newResume = new Resume(bufferedFullName, bufferedID);
-                    MyArray.update(newResume);
+                    myArray.update(newResume);
                     break;
 //--------------------------------------------------------------------
                 default:
