@@ -1,5 +1,8 @@
 package com.base_java.webapp.storage;
 
+import com.base_java.webapp.exception.ExistStorageException;
+import com.base_java.webapp.exception.NotExistStorageException;
+import com.base_java.webapp.exception.StorageOverflow;
 import com.base_java.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -19,15 +22,18 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void update(Resume resumeForUpd) {
         int index = getIndex(resumeForUpd.getId());
-        if (index > FLAG_FOUNDED) {
+        if (index >= 0) {
             resumes[index].setFullName(resumeForUpd.getFullName());
             logger.info("Resume updated.");
-        } else logger.info("Not found.");
+        } else {
+            logger.info("Not found.");
+            throw new NotExistStorageException(resumeForUpd.getId());
+        }
     }
 
     public Resume getByID(Integer ID) {
         Integer index = getIndex(ID);
-        if (index > FLAG_FOUNDED) {
+        if (index >= 0) {
             if (ID.equals(resumes[index].getId()))
                 return resumes[index];
         }
@@ -49,14 +55,22 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void save(Resume savingResume) {
         Integer index = getIndex(savingResume.getId());
-        if (size < MAX_LENGTH - 1 && index < 0) {
-            insertElement(savingResume, index);
-            logger.info("Резюме создано: " + resumes[size].getFullName());
-            size++;
-        } else logger.info("Resume not saved. Check size your storage or your new resume record has equal ID.");
+        if (size < MAX_LENGTH - 1) {
+            if (index < 0) {
+                insertElement(savingResume, index);
+                logger.info("Резюме создано: " + resumes[size].getFullName());
+                size++;
+            } else {
+                logger.info("Resume not saved. Your new resume record has equal ID.");
+                throw new ExistStorageException(savingResume.getId());
+            }
+        } else{
+            logger.info("Resume not saved. Check size your storage length.");
+            throw new StorageOverflow(savingResume.getId());
+        }
     }
 
-    public abstract void insertElement (Resume savingResume, Integer index);
+    public abstract void insertElement(Resume savingResume, Integer index);
 
     public void deleteByID(Integer ID) {
         Integer index = getIndex(ID);
@@ -64,7 +78,10 @@ public abstract class AbstractArrayStorage implements Storage {
             fillDeleteElement(index);
             size--;
             logger.info("Resume with ID: " + ID.toString() + " was deleted.");
-        } else logger.info("Resume not founded.");
+        } else {
+            logger.info("Resume not founded.");
+            throw new NotExistStorageException(ID);
+        }
     }
 
     public abstract void fillDeleteElement(Integer index);

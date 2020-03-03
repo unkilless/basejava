@@ -1,5 +1,6 @@
 package com.base_java.webapp;
 
+import com.base_java.webapp.exception.NotExistStorageException;
 import com.base_java.webapp.model.Resume;
 import com.base_java.webapp.storage.ArrayStorage;
 import com.base_java.webapp.storage.Storage;
@@ -29,7 +30,7 @@ public class MainArray {
                     "4: delete all resumes; \n" +
                     "5: get by ID; \n" +
                     "6: count database; \n" +
-                    "7: update by value \n" +
+                    "7: update by ID \n" +
                     "0: exit");
             try {
                 command = input.nextInt();
@@ -74,8 +75,12 @@ public class MainArray {
 //--------------------------------------------------------------------
                 case (3):
                     System.out.println("Pls enter resume ID:");
-                    bufferedID = input.nextInt();
-                    myArray.deleteByID(bufferedID);
+                    try {
+                        bufferedID = input.nextInt();
+                        myArray.deleteByID(bufferedID);
+                    } catch (NotExistStorageException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
 //--------------------------------------------------------------------
                 case (4):
@@ -86,10 +91,13 @@ public class MainArray {
                 case (5):
                     System.out.println("Pls enter resume ID:");
                     bufferedID = input.nextInt();
-                    if (myArray.getByID(bufferedID) != null)
-                        System.out.println("Your record: \n ID: " + myArray.getByID(bufferedID).getId() + " Name: " + myArray.getByID(bufferedID).getFullName());
-                    else
-                        System.out.println("Record not exist!");
+                    try {
+                        Resume findedResume = new Resume("", 0);
+                        findedResume = myArray.getByID(bufferedID);
+                        System.out.println("Your record: \n ID: " + findedResume.getId() + " Name: " + findedResume.getFullName());
+                    } catch (NullPointerException e) {
+                        System.out.println("Resume with ID: " + bufferedID + " are not exist");
+                    }
                     break;
 //--------------------------------------------------------------------
                 case (6):
