@@ -46,5 +46,9 @@ public class MainTestArrayStorage {
 
         for(int i = 0; i < mySortedArray.sizeOfArray(); i++)
             System.out.println("ID: " + mySortedArray.resumes[i].getId() + "; Name: " + mySortedArray.resumes[i].getFullName() + ";");
+
+        for(Resume any: mySortedArray.resumes){
+            System.out.println(any.getFullName());
+        }
     }
 }

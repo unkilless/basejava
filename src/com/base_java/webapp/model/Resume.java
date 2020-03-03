@@ -3,8 +3,7 @@ package com.base_java.webapp.model;
 import java.util.Objects;
 
 public class Resume implements Comparable<Resume> {
-    private static int counter = 0;
-    private Integer id = counter++;
+    private Integer id;
     private String fullName;
 
     public Resume(String fullName, int id) {
