@@ -31,28 +31,6 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
-    public Resume getByID(Integer ID) {
-        Integer index = getIndex(ID);
-        if (index >= 0) {
-            if (ID.equals(resumes[index].getId()))
-                return resumes[index];
-        }
-        return null;
-    }
-
-    public Resume[] getAll() {
-        return Arrays.copyOf(resumes, size);
-    }
-
-    public void deleteAll() {
-        Arrays.fill(resumes, null);
-        size = 0;
-    }
-
-    protected abstract Integer getIndex(Integer id);
-
-    public abstract int[] getIdByValue(String findingStr);
-
     public void save(Resume savingResume) {
         Integer index = getIndex(savingResume.getId());
         if (size < MAX_LENGTH - 1) {
@@ -64,13 +42,29 @@ public abstract class AbstractArrayStorage implements Storage {
                 logger.info("Resume not saved. Your new resume record has equal ID.");
                 throw new ExistStorageException(savingResume.getId());
             }
-        } else{
+        } else {
             logger.info("Resume not saved. Check size your storage length.");
             throw new StorageOverflow(savingResume.getId());
         }
     }
 
-    public abstract void insertElement(Resume savingResume, Integer index);
+    public Resume[] getAll() {
+        return Arrays.copyOf(resumes, size);
+    }
+
+    public Resume getByID(Integer ID) {
+        Integer index = getIndex(ID);
+        if (index >= 0) {
+            if (ID.equals(resumes[index].getId()))
+                return resumes[index];
+        }
+        return null;
+    }
+
+    public void deleteAll() {
+        Arrays.fill(resumes, null);
+        size = 0;
+    }
 
     public void deleteByID(Integer ID) {
         Integer index = getIndex(ID);
@@ -83,6 +77,12 @@ public abstract class AbstractArrayStorage implements Storage {
             throw new NotExistStorageException(ID);
         }
     }
+
+    public abstract int[] getIdByValue(String findingStr);
+
+    protected abstract Integer getIndex(Integer id);
+
+    public abstract void insertElement(Resume savingResume, Integer index);
 
     public abstract void fillDeleteElement(Integer index);
 }
