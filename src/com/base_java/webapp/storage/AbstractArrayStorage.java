@@ -33,7 +33,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void save(Resume savingResume) {
         Integer index = getIndex(savingResume.getId());
-        if (size < MAX_LENGTH - 1) {
+        if (size < MAX_LENGTH) {
             if (index < 0) {
                 insertElement(savingResume, index);
                 logger.info("Резюме создано: " + resumes[size].getFullName());
@@ -43,7 +43,7 @@ public abstract class AbstractArrayStorage implements Storage {
                 throw new ExistStorageException(savingResume.getId());
             }
         } else {
-            logger.info("Resume not saved. Check size your storage length.");
+            logger.info("Resume not saved. Check size your storage length. Invalid resume ID: " + savingResume.getId());
             throw new StorageOverflow(savingResume.getId());
         }
     }
