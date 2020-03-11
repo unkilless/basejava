@@ -20,7 +20,7 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void update(Resume resumeForUpd) {
-        int index = getIndex(resumeForUpd.getId());
+        int index = searchIndex(resumeForUpd.getId());
         if (index >= 0) {
             resumes[index].setFullName(resumeForUpd.getFullName());
             logger.info("Resume updated.");
@@ -31,11 +31,11 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void save(Resume savingResume) {
-        Integer index = getIndex(savingResume.getId());
+        Integer index = searchIndex(savingResume.getId());
         if (size < MAX_LENGTH) {
             if (index < 0) {
                 insertElement(savingResume, index);
-                logger.info("Резюме создано: " + resumes[size].getFullName());
+                logger.info("Резюме создано: " + savingResume.getFullName());
                 size++;
             } else {
                 logger.info("Resume not saved. Your new resume record has equal ID.");
@@ -52,7 +52,7 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public Resume getByID(Integer ID) {
-        Integer index = getIndex(ID);
+        Integer index = searchIndex(ID);
         if (index >= 0) {
             if (ID.equals(resumes[index].getId()))
                 return resumes[index];
@@ -66,7 +66,7 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void deleteByID(Integer ID) {
-        Integer index = getIndex(ID);
+        Integer index = searchIndex(ID);
         if (index > 0) {
             fillDeleteElement(index);
             size--;
@@ -79,7 +79,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public abstract int[] getIdByValue(String findingStr);
 
-    protected abstract Integer getIndex(Integer id);
+    protected abstract Integer searchIndex(Integer id);
 
     public abstract void insertElement(Resume savingResume, Integer index);
 
