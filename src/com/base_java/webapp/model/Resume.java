@@ -1,10 +1,16 @@
 package com.base_java.webapp.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Resume implements Comparable<Resume> {
     private Integer id;
     private String fullName;
+
+    public Resume() {
+        this.id = (int) (Math.random() * 1000);
+        this.fullName = UUID.randomUUID().toString();
+    }
 
     public Resume(String fullName, int id) {
         this.fullName = fullName;

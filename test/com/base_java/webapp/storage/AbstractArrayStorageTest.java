@@ -85,7 +85,6 @@ class AbstractArrayStorageTest {
         Assertions.assertEquals(FIRST_RESUME, testArrayResumes[0]);
         Assertions.assertEquals(SECOND_RESUME, testArrayResumes[1]);
         Assertions.assertEquals(THIRD_RESUME, testArrayResumes[2]);
-
     }
 
     @Test
