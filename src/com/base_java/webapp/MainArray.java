@@ -3,14 +3,13 @@ package com.base_java.webapp;
 import com.base_java.webapp.exception.NotExistStorageException;
 import com.base_java.webapp.model.Resume;
 import com.base_java.webapp.storage.ArrayStorage;
-import com.base_java.webapp.storage.Storage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainArray {
 
-    private static Storage myArray = new ArrayStorage();
+    private static ArrayStorage myArray = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume[] resumes = new Resume[10000];

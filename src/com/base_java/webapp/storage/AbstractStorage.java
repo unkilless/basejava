@@ -13,9 +13,8 @@ public abstract class AbstractStorage implements Storage {
     public abstract int sizeOfArray();
 
     public void update(Resume resumeForUpd) {
-        int index = searchIndex(resumeForUpd.getId());
+        Integer index = searchIndex(resumeForUpd.getId());
         if (index >= 0) {
-            //TODO создать в AbstractArrayStorage метод setCurrentResume и поместить в него resumes[index].setFullName(resumeForUpd.getFullName());
             setCurrentResume(index, resumeForUpd);
             logger.info("Resume updated.");
         } else {
@@ -26,8 +25,36 @@ public abstract class AbstractStorage implements Storage {
 
     public abstract void save(Resume savingResume);
 
+    public abstract Resume[] getAll();
+
+    public Resume getByID(Integer ID) {
+        Integer index = searchIndex(ID);
+        if (index >= 0) {
+            if (ID.equals(getResume(index).getId()))
+                return getResume(index);
+        }
+        return null;
+    }
+
+    public abstract void deleteAll();
+
+    public void deleteByID(Integer ID) {
+        Integer index = searchIndex(ID);
+        if (index >= 0) {
+            deleteFindedResume(index);
+            logger.info("Resume with ID: " + ID.toString() + " was deleted.");
+        } else {
+            logger.info("Resume not founded.");
+            throw new NotExistStorageException(ID);
+        }
+    }
+
     protected abstract Integer searchIndex(Integer id);
 
     protected abstract void setCurrentResume(Integer id, Resume resumeForUpd);
+
+    protected  abstract Resume getResume(Integer index);
+
+    protected abstract void deleteFindedResume (int index);
 
 }

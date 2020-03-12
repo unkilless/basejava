@@ -12,15 +12,7 @@ public class ArrayStorage extends AbstractArrayStorage {
         return RESUME_NOT_FOUND;
     }
 
-    public int[] getIdByValue(String findingStr) {
-        int[] outputArrayOfIndexes = new int[size];
-        int j = 0;
-        for (int i = 0; i < size; i++) {
-            if (resumes[i].getFullName().equals(findingStr))
-                outputArrayOfIndexes[j++] = resumes[i].getId();
-        }
-        return outputArrayOfIndexes;
-    }
+
 
     public void insertElement(Resume savingResume, Integer index){
         resumes[size] = savingResume;

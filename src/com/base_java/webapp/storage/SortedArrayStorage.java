@@ -26,8 +26,4 @@ public class SortedArrayStorage extends AbstractArrayStorage{
         return Arrays.binarySearch(resumes, 0, size, searchKey);
     }
 
-    @Override
-    public int[] getIdByValue(String findingStr) {
-        return null;
-    }
 }

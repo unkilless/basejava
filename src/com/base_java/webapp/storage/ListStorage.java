@@ -36,22 +36,13 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        return new Resume[0];
+        return resumesList.toArray(new Resume[resumesList.size()]);
     }
 
-    @Override
-    public Resume getByID(Integer ID) {
-        return null;
-    }
-
-    @Override
-    public void deleteByID(Integer ID) {
-
-    }
 
     @Override
     public void deleteAll() {
-
+        resumesList.clear();
     }
 
     @Override
@@ -78,4 +69,13 @@ public class ListStorage extends AbstractStorage {
     protected void setCurrentResume(Integer id, Resume resumeForUpd){
         resumesList.set(id, resumeForUpd);
     }
+
+    @Override
+    protected Resume getResume(Integer index) {
+        return resumesList.get(index);
+    }
+
+    protected void deleteFindedResume (int index) {
+        resumesList.remove(index);
+    };
 }
