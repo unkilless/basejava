@@ -4,12 +4,13 @@ import com.base_java.webapp.model.Resume;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class ListStorage extends AbstractStorage {
 
     protected static final int EMPTY_LIST = 0;
     protected static final int NOT_FOUNDED = -1;
-    protected ArrayList<Resume> resumesList = new ArrayList<>();
+    protected List<Resume> resumesList = new ArrayList<>();
 
     public ListStorage() {
     }

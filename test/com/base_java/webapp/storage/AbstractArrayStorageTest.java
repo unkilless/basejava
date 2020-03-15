@@ -2,7 +2,6 @@ package com.base_java.webapp.storage;
 
 import com.base_java.webapp.exception.ExistStorageException;
 import com.base_java.webapp.exception.NotExistStorageException;
-import com.base_java.webapp.exception.StorageOverflow;
 import com.base_java.webapp.model.Resume;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -72,19 +71,19 @@ class AbstractArrayStorageTest {
         }
         System.out.println(storage.sizeOfArray());
 
-        Assertions.assertThrows(StorageOverflow.class, () -> {
+        /*Assertions.assertThrows(StorageOverflow.class, () -> {
             storage.save(new Resume(newStr, 25000));
         });
-
+*/
     }
 
     @Test
     void getAll() {
         Resume[] testArrayResumes;
-        //testArrayResumes = storage.getAll();
-        //Assertions.assertEquals(FIRST_RESUME, testArrayResumes[0]);
-        //Assertions.assertEquals(SECOND_RESUME, testArrayResumes[1]);
-        //Assertions.assertEquals(THIRD_RESUME, testArrayResumes[2]);
+        testArrayResumes = storage.getAll();
+        Assertions.assertEquals(FIRST_RESUME, testArrayResumes[0]);
+        Assertions.assertEquals(SECOND_RESUME, testArrayResumes[1]);
+        Assertions.assertEquals(THIRD_RESUME, testArrayResumes[2]);
     }
 
     @Test

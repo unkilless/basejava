@@ -3,12 +3,13 @@ package com.base_java.webapp;
 import com.base_java.webapp.exception.NotExistStorageException;
 import com.base_java.webapp.model.Resume;
 import com.base_java.webapp.storage.ListStorage;
+import com.base_java.webapp.storage.Storage;
 
 public class MainArrayList {
 
 
     public static void main(String[] args) {
-        ListStorage listStorage = new ListStorage();
+        Storage listStorage = new ListStorage();
 
         System.out.println(listStorage.sizeOfArray());
 

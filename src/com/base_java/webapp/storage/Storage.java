@@ -10,7 +10,7 @@ public interface Storage {
 
     void save(Resume savingResume);
 
-    Object[] getAll();
+    Resume[] getAll();
 
     Resume getByID(Integer ID);
 
