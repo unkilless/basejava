@@ -1,7 +1,5 @@
 package com.base_java.webapp.storage;
 
-import com.base_java.webapp.exception.ExistStorageException;
-import com.base_java.webapp.exception.StorageOverflow;
 import com.base_java.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -18,23 +16,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return size;
     }
 
-    public void save(Resume savingResume) {
-        Integer index = searchIndex(savingResume.getId());
-        if (size < MAX_LENGTH) {
-            if (index < 0) {
-                insertElement(savingResume, index);
-                logger.info("Резюме создано: " + savingResume.getFullName());
-                size++;
-            } else {
-                logger.info("Resume not saved. Your new resume record has equal ID.");
-                throw new ExistStorageException(savingResume.getId());
-            }
-        } else {
-            logger.info("Resume not saved. Check size your storage length. Invalid resume ID: " + savingResume.getId());
-            throw new StorageOverflow(savingResume.getId());
-        }
-    }
-
     public Resume[] getAll() {
         return Arrays.copyOf(resumes, size);
     }
@@ -49,6 +30,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     protected abstract Integer searchIndex(Integer id);
+
+    protected void saveCurrentResume(Integer id, Resume savingResume){
+        insertElement(savingResume, id);
+        size++;
+    }
 
     protected  Resume getResume(Integer index){
         return resumes[index];

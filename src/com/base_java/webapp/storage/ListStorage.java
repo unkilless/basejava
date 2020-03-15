@@ -1,6 +1,5 @@
 package com.base_java.webapp.storage;
 
-import com.base_java.webapp.exception.ExistStorageException;
 import com.base_java.webapp.model.Resume;
 
 import java.util.ArrayList;
@@ -23,15 +22,8 @@ public class ListStorage extends AbstractStorage {
         }
     }
 
-    public void save(Resume savingResume) {
-        Integer index = searchIndex(savingResume.getId());
-            if (index < 0) {
+    public void saveCurrentResume(Integer id, Resume savingResume) {
                 resumesList.add(savingResume);
-                logger.info("Резюме создано: " + savingResume.getFullName());
-            } else {
-                logger.info("Resume not saved. Your new resume record has equal ID.");
-                throw new ExistStorageException(savingResume.getId());
-            }
     }
 
     @Override
@@ -58,7 +50,6 @@ public class ListStorage extends AbstractStorage {
                if (id.equals(it.next().getId()))
                    return counter;
                counter++;
-               //it.next();
            }
            return NOT_FOUNDED;
         } catch (NullPointerException | IndexOutOfBoundsException e) {

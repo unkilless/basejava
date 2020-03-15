@@ -12,8 +12,6 @@ public class ArrayStorage extends AbstractArrayStorage {
         return RESUME_NOT_FOUND;
     }
 
-
-
     public void insertElement(Resume savingResume, Integer index){
         resumes[size] = savingResume;
     }
