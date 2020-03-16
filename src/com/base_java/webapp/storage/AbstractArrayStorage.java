@@ -1,5 +1,6 @@
 package com.base_java.webapp.storage;
 
+import com.base_java.webapp.exception.StorageOverflow;
 import com.base_java.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -32,8 +33,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract Integer searchIndex(Integer id);
 
     protected void saveCurrentResume(Integer id, Resume savingResume){
-        insertElement(savingResume, id);
-        size++;
+        if (size <= MAX_LENGTH - 1) {
+            insertElement(savingResume, id);
+            size++;
+        } else throw new StorageOverflow(savingResume.getId());
     }
 
     protected  Resume getResume(Integer index){
