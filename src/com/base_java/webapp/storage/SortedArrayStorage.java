@@ -3,8 +3,16 @@ package com.base_java.webapp.storage;
 import com.base_java.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class SortedArrayStorage extends AbstractArrayStorage{
+
+    public static final Comparator<Resume> RESUME_COMPARATOR = new Comparator<Resume>() {
+        @Override
+        public int compare(Resume o1, Resume o2){
+            return o1.compareTo(o2);
+        }
+    };
 
     @Override
     public void insertElement(Resume savingResume, Integer index) {
@@ -23,7 +31,7 @@ public class SortedArrayStorage extends AbstractArrayStorage{
     @Override
     protected Integer searchIndex(Integer id) {
         Resume searchKey = new Resume("", id);
-        return Arrays.binarySearch(resumes, 0, size, searchKey);
+        return Arrays.binarySearch(resumes, 0, size, searchKey, RESUME_COMPARATOR);
     }
 
 }
