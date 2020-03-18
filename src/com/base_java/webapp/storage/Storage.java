@@ -2,6 +2,8 @@ package com.base_java.webapp.storage;
 
 import com.base_java.webapp.model.Resume;
 
+import java.util.List;
+
 public interface Storage {
 
     int sizeOfArray();
@@ -10,7 +12,7 @@ public interface Storage {
 
     void save(Resume savingResume);
 
-    Resume[] getAll();
+    List<Resume> getAll();
 
     Resume getByID(Integer ID);
 

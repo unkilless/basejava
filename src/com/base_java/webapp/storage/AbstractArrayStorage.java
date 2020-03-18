@@ -4,11 +4,13 @@ import com.base_java.webapp.exception.StorageOverflow;
 import com.base_java.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int RESUME_NOT_FOUND = -1;
-    protected static Logger logger = Logger.getLogger(ArrayStorage.class.getName());
+    protected static Logger logger = Logger.getLogger(AbstractArrayStorage.class.getName());
     protected static final int MAX_LENGTH = 10000;
     public Resume[] resumes = new Resume[MAX_LENGTH];
     protected int size = 0;
@@ -17,8 +19,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return size;
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOf(resumes, size);
+    public List<Resume> getAll() {
+        List<Resume> outputSortedList = Arrays.asList(resumes);
+        Collections.sort(outputSortedList, RESUME_COMPARATOR);
+        return outputSortedList;
     }
 
     public void deleteAll() {

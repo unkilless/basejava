@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 public abstract class AbstractArrayStorageTest {
     //private Storage storage = new ArrayStorage();
     private Storage storage;
@@ -82,17 +84,16 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     void getAll() {
-        Resume[] testArrayResumes;
-        testArrayResumes = storage.getAll();
+        List<Resume> testResumesList = storage.getAll();
         String checkMap = storage.getClass().getName().toString().toLowerCase();
         if (!checkMap.contains("map")) {
-            Assertions.assertEquals(FIRST_RESUME, testArrayResumes[0]);
-            Assertions.assertEquals(SECOND_RESUME, testArrayResumes[1]);
-            Assertions.assertEquals(THIRD_RESUME, testArrayResumes[2]);
+            Assertions.assertEquals(FIRST_RESUME, testResumesList.get(0));
+            Assertions.assertEquals(SECOND_RESUME, testResumesList.get(1));
+            Assertions.assertEquals(THIRD_RESUME, testResumesList.get(2));
         } else {
-            Assertions.assertEquals(FIRST_RESUME, testArrayResumes[2]);
-            Assertions.assertEquals(SECOND_RESUME, testArrayResumes[1]);
-            Assertions.assertEquals(THIRD_RESUME, testArrayResumes[0]);
+            Assertions.assertEquals(FIRST_RESUME, testResumesList.get(2));
+            Assertions.assertEquals(SECOND_RESUME, testResumesList.get(1));
+            Assertions.assertEquals(THIRD_RESUME, testResumesList.get(0));
         }
     }
 

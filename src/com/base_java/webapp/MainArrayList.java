@@ -5,6 +5,8 @@ import com.base_java.webapp.model.Resume;
 import com.base_java.webapp.storage.ListStorage;
 import com.base_java.webapp.storage.Storage;
 
+import java.util.List;
+
 public class MainArrayList {
 
 
@@ -29,9 +31,9 @@ public class MainArrayList {
 
         listStorage.deleteByID(11);
 
-        Resume[] outputResumes = listStorage.getAll();
-        for (int i = 0; i < listStorage.sizeOfArray(); i++)
-            System.out.println(" - " + outputResumes[i]);
+        List<Resume> outputResumes = listStorage.getAll();
+        for (Resume resume: outputResumes)
+            System.out.println(" - " + resume);
 
         //listStorage.deleteAll(); //checked
 

@@ -5,11 +5,12 @@ import com.base_java.webapp.model.Resume;
 import com.base_java.webapp.storage.ArrayStorage;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainArray {
 
-    private static ArrayStorage myArray = new ArrayStorage();
+    private static ArrayStorage resumesArray = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume[] resumes = new Resume[10000];
@@ -62,28 +63,29 @@ public class MainArray {
                     }
 
                     newResume = new Resume(bufferedFullName, bufferedID);
-                    myArray.save(newResume);
+                    resumesArray.save(newResume);
                     break;
 //--------------------------------------------------------------------
                 case (2):
-                    resumes = myArray.getAll();
+
+                    List<Resume> outputList = resumesArray.getAll();
                     System.out.println("List of resumes:");
-                    for (int j = 0; j < myArray.sizeOfArray(); j++)
-                        System.out.println("ID: " + resumes[j].getId() + " Name: " + resumes[j].getFullName() + ";");
+                    for (Resume resume: outputList)
+                        System.out.println("ID: " + resume.getId() + " Name: " + resume.getFullName() + ";");
                     break;
 //--------------------------------------------------------------------
                 case (3):
                     System.out.println("Pls enter resume ID:");
                     try {
                         bufferedID = input.nextInt();
-                        myArray.deleteByID(bufferedID);
+                        resumesArray.deleteByID(bufferedID);
                     } catch (NotExistStorageException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
 //--------------------------------------------------------------------
                 case (4):
-                    myArray.deleteAll();
+                    resumesArray.deleteAll();
                     System.out.println("Database is empty");
                     break;
 //--------------------------------------------------------------------
@@ -92,7 +94,7 @@ public class MainArray {
                     bufferedID = input.nextInt();
                     try {
                         Resume findedResume = new Resume("", 0);
-                        findedResume = myArray.getByID(bufferedID);
+                        findedResume = resumesArray.getByID(bufferedID);
                         System.out.println("Your record: \n ID: " + findedResume.getId() + " Name: " + findedResume.getFullName());
                     } catch (NullPointerException e) {
                         System.out.println("Resume with ID: " + bufferedID + " are not exist");
@@ -100,7 +102,7 @@ public class MainArray {
                     break;
 //--------------------------------------------------------------------
                 case (6):
-                    System.out.println("Record's count is " + myArray.sizeOfArray());
+                    System.out.println("Record's count is " + resumesArray.sizeOfArray());
                     break;
 //--------------------------------------------------------------------
                 case (7):
@@ -117,7 +119,7 @@ public class MainArray {
                         }
                     }
                     newResume = new Resume(bufferedFullName, bufferedID);
-                    myArray.update(newResume);
+                    resumesArray.update(newResume);
                     break;
 //--------------------------------------------------------------------
                 default:

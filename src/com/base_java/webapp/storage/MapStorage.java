@@ -2,14 +2,13 @@ package com.base_java.webapp.storage;
 
 import com.base_java.webapp.model.Resume;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MapStorage extends AbstractStorage {
 
     protected static final int EMPTY_LIST = 0;
     protected static final int NOT_FOUNDED = -1;
-    protected Map<Integer, Resume> resumesMap = new HashMap<>();
+    protected Map<Integer, Resume> resumesMap = new HashMap<Integer, Resume>();
 
     @Override
     public int sizeOfArray() {
@@ -17,13 +16,10 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        int i = 0;
-        Resume[] resumes = new Resume[resumesMap.size()];
-        for (Resume resume: resumesMap.values()){
-            resumes[i++] = resume;
-        }
-        return resumes;
+    public List<Resume> getAll() {
+        List<Resume> outputSortedList = new ArrayList<Resume>(resumesMap.values());
+        Collections.sort(outputSortedList, RESUME_COMPARATOR);
+        return outputSortedList;
     }
 
     @Override

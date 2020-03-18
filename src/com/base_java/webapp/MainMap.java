@@ -4,6 +4,8 @@ import com.base_java.webapp.model.Resume;
 import com.base_java.webapp.storage.MapStorage;
 import com.base_java.webapp.storage.Storage;
 
+import java.util.List;
+
 public class MainMap {
     public static void main(String[] args) {
         Storage mapStorage = new MapStorage();
@@ -13,10 +15,10 @@ public class MainMap {
         mapStorage.save(new Resume("Vadim", 83));
 
         System.out.println("Size of DB: " + mapStorage.sizeOfArray() + "\nResumes: ");
-        Resume[] outputResumes;
+        List<Resume> outputResumes;
         outputResumes = mapStorage.getAll();
-        for (int i = 0; i < mapStorage.sizeOfArray(); i++){
-            System.out.println(outputResumes[i]);
+        for (Resume resume: outputResumes){
+            System.out.println(resume);
         }
 
         System.out.println("Get resume by ID = 83: " + mapStorage.getByID(83));
@@ -26,9 +28,9 @@ public class MainMap {
 
         mapStorage.update(new Resume("Gennadi", 77));
 
-        outputResumes = mapStorage.getAll();
-        for(int i = 0; i < mapStorage.sizeOfArray(); i++){
-            System.out.println(outputResumes[i]);
+        List<Resume> outputList = mapStorage.getAll();
+        for(Resume resume: outputList){
+            System.out.println(resume);
         }
 
         mapStorage.deleteAll();

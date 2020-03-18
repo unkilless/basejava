@@ -28,8 +28,10 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return resumesList.toArray(new Resume[resumesList.size()]);
+    public List<Resume> getAll() {
+        List<Resume> outputSortedList = resumesList;
+        outputSortedList.sort(RESUME_COMPARATOR);
+        return outputSortedList;
     }
 
 
