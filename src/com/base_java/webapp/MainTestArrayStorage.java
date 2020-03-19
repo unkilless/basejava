@@ -8,24 +8,24 @@ public class MainTestArrayStorage {
 
     public static final ArrayStorage myArray = new ArrayStorage();
 
-    public static final SortedArrayStorage mySortedArray = new SortedArrayStorage();
+    public static final SortedArrayStorage sortedArray = new SortedArrayStorage();
 
     public static void main(String[] args) {
 
         Resume newSortResumeRecord = new Resume("Ivan", 29);
-        mySortedArray.save(newSortResumeRecord);
+        sortedArray.save(newSortResumeRecord);
         newSortResumeRecord = new Resume("gena", 199);
-        mySortedArray.save(newSortResumeRecord);
+        sortedArray.save(newSortResumeRecord);
         newSortResumeRecord = new Resume("sanya", 69);
-        mySortedArray.save(newSortResumeRecord);
+        sortedArray.save(newSortResumeRecord);
         newSortResumeRecord = new Resume("jopa", 79);
-        mySortedArray.save(newSortResumeRecord);
+        sortedArray.save(newSortResumeRecord);
 
         newSortResumeRecord = new Resume();
-        mySortedArray.save(newSortResumeRecord);
+        sortedArray.save(newSortResumeRecord);
 
-        for (int i = 0; i < mySortedArray.sizeOfArray(); i++)
-            System.out.println("ID: " + mySortedArray.resumes[i].getId() + "; Name: " + mySortedArray.resumes[i].getFullName() + ";");
+        for (int i = 0; i < sortedArray.sizeOfArray(); i++)
+            System.out.println("ID: " + sortedArray.resumes[i].getId() + "; Name: " + sortedArray.resumes[i].getFullName() + ";");
 
     }
 }

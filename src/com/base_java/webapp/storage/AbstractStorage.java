@@ -16,7 +16,7 @@ public abstract class AbstractStorage implements Storage {
         @Override
         public int compare(Resume o1, Resume o2) {
             if (o1 == null || o2 == null)
-                return -1;
+                return 1;
             return o1.compareTo(o2);
         }
     };

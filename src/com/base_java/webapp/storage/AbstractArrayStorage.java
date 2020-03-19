@@ -20,7 +20,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     public List<Resume> getAll() {
-        List<Resume> outputSortedList = Arrays.asList(resumes);
+        Resume[] resumesNotNull = new Resume[size - 1];
+        resumesNotNull = Arrays.copyOfRange(resumes, 0, size);
+        List<Resume> outputSortedList = Arrays.asList(resumesNotNull);
         Collections.sort(outputSortedList, RESUME_COMPARATOR);
         return outputSortedList;
     }
@@ -36,18 +38,18 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected abstract Integer searchIndex(Integer id);
 
-    protected void saveCurrentResume(Integer id, Resume savingResume){
+    protected void saveCurrentResume(Integer id, Resume savingResume) {
         if (size <= MAX_LENGTH - 1) {
             insertElement(savingResume, id);
             size++;
         } else throw new StorageOverflow(savingResume.getId());
     }
 
-    protected  Resume getResume(Integer index){
+    protected Resume getResume(Integer index) {
         return resumes[index];
     }
 
-    protected void deleteFindedResume (int index){
+    protected void deleteFindedResume(int index) {
         fillDeleteElement(index);
         size--;
     }

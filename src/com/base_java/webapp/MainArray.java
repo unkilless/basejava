@@ -70,8 +70,9 @@ public class MainArray {
 
                     List<Resume> outputList = resumesArray.getAll();
                     System.out.println("List of resumes:");
-                    for (Resume resume: outputList)
-                        System.out.println("ID: " + resume.getId() + " Name: " + resume.getFullName() + ";");
+                    for (Resume resume : outputList) {
+                            System.out.println("ID: " + resume.getId() + " Name: " + resume.getFullName() + ";");
+                    }
                     break;
 //--------------------------------------------------------------------
                 case (3):

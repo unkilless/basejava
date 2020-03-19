@@ -12,9 +12,6 @@ public class ListStorage extends AbstractStorage {
     protected static final int NOT_FOUNDED = -1;
     protected List<Resume> resumesList = new ArrayList<>();
 
-    public ListStorage() {
-    }
-
     public int sizeOfArray() {
         try {
             return resumesList.size();
@@ -33,7 +30,6 @@ public class ListStorage extends AbstractStorage {
         outputSortedList.sort(RESUME_COMPARATOR);
         return outputSortedList;
     }
-
 
     @Override
     public void deleteAll() {
