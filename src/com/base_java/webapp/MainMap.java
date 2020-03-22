@@ -1,14 +1,15 @@
 package com.base_java.webapp;
 
 import com.base_java.webapp.model.Resume;
-import com.base_java.webapp.storage.MapStorage;
+import com.base_java.webapp.storage.MapStorageLongKey;
 import com.base_java.webapp.storage.Storage;
 
 import java.util.List;
 
 public class MainMap {
     public static void main(String[] args) {
-        Storage mapStorage = new MapStorage();
+        //Storage mapStorage = new MapStorage();
+        Storage mapStorage = new MapStorageLongKey();
 
         mapStorage.save(new Resume("Iban", 37));
         mapStorage.save(new Resume("Gena", 77));
@@ -16,7 +17,7 @@ public class MainMap {
 
         System.out.println("Size of DB: " + mapStorage.sizeOfArray() + "\nResumes: ");
         List<Resume> outputResumes;
-        outputResumes = mapStorage.getAll();
+        outputResumes = mapStorage.getAllSorted();
         for (Resume resume: outputResumes){
             System.out.println(resume);
         }
@@ -28,7 +29,7 @@ public class MainMap {
 
         mapStorage.update(new Resume("Gennadi", 77));
 
-        List<Resume> outputList = mapStorage.getAll();
+        List<Resume> outputList = mapStorage.getAllSorted();
         for(Resume resume: outputList){
             System.out.println(resume);
         }

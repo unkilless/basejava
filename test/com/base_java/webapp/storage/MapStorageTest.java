@@ -1,6 +1,6 @@
 package com.base_java.webapp.storage;
 
-class MapStorageTest extends AbstractArrayStorageTest {
+class MapStorageTest extends CommonTest {
     public MapStorageTest() {
         super(new MapStorage());
     }

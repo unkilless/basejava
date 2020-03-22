@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public abstract class AbstractArrayStorageTest {
-    //private Storage storage = new ArrayStorage();
+public abstract class CommonTest {
     private Storage storage;
     private static final String FIRST_NAME = "Iban";
     public static final int FIRST_ID = 11;
@@ -24,7 +23,10 @@ public abstract class AbstractArrayStorageTest {
     public static final Resume THIRD_RESUME = new Resume(THIRD_NAME, THIRD_ID);
     public static final Integer MAX_LENGTH = 10000;
 
-    public AbstractArrayStorageTest(Storage storage) {
+    public static final String FOURTH_NAME = "Georgy";
+    public static final int FOURTH_ID = 77;
+
+    public CommonTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -40,61 +42,57 @@ public abstract class AbstractArrayStorageTest {
     @Test
     void sizeOfArray() {
         Assertions.assertEquals(3, storage.sizeOfArray());
-
-
     }
 
     @Test
-    void update() {
-        String fourthName = "jopa";
-        int fourthId = 77;
+    void updateIncorrect() {
         Assertions.assertThrows(NotExistStorageException.class, () -> {
-            storage.update(new Resume(fourthName, fourthId));
+            storage.update(new Resume(FOURTH_NAME, FOURTH_ID));
         });
 
-        storage.update(new Resume(fourthName, SECOND_ID));
-        Assertions.assertEquals(storage.getByID(SECOND_ID).getFullName(), fourthName);
     }
 
     @Test
-    void save() {
-        String newStr = "testName";
-        int newId = 90;
+    void updateCorrect() {
+        storage.update(new Resume(FOURTH_NAME, SECOND_ID));
+        Assertions.assertEquals(storage.getByID(SECOND_ID).getFullName(), FOURTH_NAME);
+    }
 
+    @Test
+    void saveIncorrect() {
         Assertions.assertThrows(ExistStorageException.class, () -> {
             storage.save(new Resume(SECOND_NAME, THIRD_ID));
         });
+    }
+
+    @Test
+    void saveCorrect() {
+        String newStr = "testName";
+        int newId = 90;
 
         storage.save(new Resume(newStr, newId));
+    }
 
-        int currentSize = storage.sizeOfArray();
-
-        for (int i = 0; i < MAX_LENGTH - currentSize; i++) {
-            storage.save(new Resume(newStr, i + 100));
+    @Test
+    void checkCorrectSize() {
+        for (int i = 0; i < MAX_LENGTH - 3; i++) {
+            storage.save(new Resume("TestCharset", i + 100));
+            System.out.println("counter - " + i);
         }
-        System.out.println(storage.sizeOfArray());
-
-        String nameOfClass = storage.getClass().getName().toString().toLowerCase();
+        System.out.println("Entered resumes - " + storage.sizeOfArray());
+        String nameOfClass = storage.getClass().getName().toLowerCase();
         if (!nameOfClass.contains("list") && !nameOfClass.contains("map")) {
             Assertions.assertThrows(StorageOverflow.class, () -> {
-                storage.save(new Resume(newStr, 25000));
+                storage.save(new Resume("lastFullName", 25000));
             });
         }
     }
 
+
     @Test
     void getAll() {
-        List<Resume> testResumesList = storage.getAll();
-        String checkMap = storage.getClass().getName().toString().toLowerCase();
-        if (!checkMap.contains("map")) {
-            Assertions.assertEquals(FIRST_RESUME, testResumesList.get(0));
-            Assertions.assertEquals(SECOND_RESUME, testResumesList.get(1));
-            Assertions.assertEquals(THIRD_RESUME, testResumesList.get(2));
-        } else {
-            Assertions.assertEquals(FIRST_RESUME, testResumesList.get(2));
-            Assertions.assertEquals(SECOND_RESUME, testResumesList.get(1));
-            Assertions.assertEquals(THIRD_RESUME, testResumesList.get(0));
-        }
+        List<Resume> testResumesList = storage.getAllSorted();
+        Assertions.assertEquals(testResumesList.get(0), FIRST_RESUME);
     }
 
     @Test
@@ -111,11 +109,15 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    void deleteByID() {
+    void deleteByIDIncorrect() {
         int incorrectId = 90;
         Assertions.assertThrows(NotExistStorageException.class, () -> {
             storage.deleteByID(incorrectId);
         });
+    }
+
+    @Test
+    void deleteByIDCorrect() {
         storage.deleteByID(SECOND_ID);
         Assertions.assertEquals(2, storage.sizeOfArray());
     }

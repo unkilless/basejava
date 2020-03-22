@@ -4,7 +4,6 @@ import com.base_java.webapp.exception.StorageOverflow;
 import com.base_java.webapp.model.Resume;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -19,12 +18,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return size;
     }
 
-    public List<Resume> getAll() {
-        Resume[] resumesNotNull = new Resume[size - 1];
-        resumesNotNull = Arrays.copyOfRange(resumes, 0, size);
-        List<Resume> outputSortedList = Arrays.asList(resumesNotNull);
-        Collections.sort(outputSortedList, RESUME_COMPARATOR);
-        return outputSortedList;
+    protected List<Resume> convertToListStorage() {
+        Resume[] resumes = Arrays.copyOfRange(this.resumes, 0, size);
+        return Arrays.asList(resumes);
     }
 
     public void deleteAll() {
@@ -32,15 +28,13 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    protected void setCurrentResume(Integer index, Resume resumeForUpd) {
-        resumes[index].setFullName(resumeForUpd.getFullName());
+    protected void setCurrentResume(Object index, Resume resumeForUpd) {
+        resumes[(int) index].setFullName(resumeForUpd.getFullName());
     }
 
-    protected abstract Integer searchIndex(Integer id);
-
-    protected void saveCurrentResume(Integer id, Resume savingResume) {
+    protected void saveCurrentResume(Object id, Resume savingResume) {
         if (size <= MAX_LENGTH - 1) {
-            insertElement(savingResume, id);
+            insertElement(savingResume, (int) id);
             size++;
         } else throw new StorageOverflow(savingResume.getId());
     }

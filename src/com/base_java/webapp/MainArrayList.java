@@ -31,7 +31,7 @@ public class MainArrayList {
 
         listStorage.deleteByID(11);
 
-        List<Resume> outputResumes = listStorage.getAll();
+        List<Resume> outputResumes = listStorage.getAllSorted();
         for (Resume resume: outputResumes)
             System.out.println(" - " + resume);
 

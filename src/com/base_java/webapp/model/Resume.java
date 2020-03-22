@@ -1,5 +1,6 @@
 package com.base_java.webapp.model;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -56,6 +57,9 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int compareTo(Resume o) {
-        return this.id.compareTo(o.id);
+        return Comparator.comparing(Resume::getId)
+                .thenComparing(Resume::getFullName)
+                .compare(this, o);
+//        return this.id.compareTo(o.id); //оставил как наиболее подходещее условие сравнения
     }
 }

@@ -20,15 +20,13 @@ public class ListStorage extends AbstractStorage {
         }
     }
 
-    public void saveCurrentResume(Integer id, Resume savingResume) {
+    public void saveCurrentResume(Object id, Resume savingResume) {
                 resumesList.add(savingResume);
     }
 
     @Override
-    public List<Resume> getAll() {
-        List<Resume> outputSortedList = resumesList;
-        outputSortedList.sort(RESUME_COMPARATOR);
-        return outputSortedList;
+    protected List<Resume> convertToListStorage() {
+        return resumesList;
     }
 
     @Override
@@ -41,7 +39,7 @@ public class ListStorage extends AbstractStorage {
         return new int[0];
     }
 
-    protected Integer searchIndex(Integer id){
+    protected Integer searchIndex(Object id){
         try {
            Integer counter = 0;
            Iterator<Resume> it = resumesList.iterator();
@@ -56,8 +54,8 @@ public class ListStorage extends AbstractStorage {
         }
     }
 
-    protected void setCurrentResume(Integer id, Resume resumeForUpd){
-        resumesList.set(id, resumeForUpd);
+    protected void setCurrentResume(Object id, Resume resumeForUpd){
+        resumesList.set((Integer) id, resumeForUpd);
     }
 
     @Override

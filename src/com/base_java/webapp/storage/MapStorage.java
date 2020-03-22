@@ -6,7 +6,6 @@ import java.util.*;
 
 public class MapStorage extends AbstractStorage {
 
-    protected static final int EMPTY_LIST = 0;
     protected static final int NOT_FOUNDED = -1;
     protected Map<Integer, Resume> resumesMap = new HashMap<Integer, Resume>();
 
@@ -16,9 +15,8 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> getAll() {
+    protected List<Resume> convertToListStorage() {
         List<Resume> outputSortedList = new ArrayList<Resume>(resumesMap.values());
-        Collections.sort(outputSortedList, RESUME_COMPARATOR);
         return outputSortedList;
     }
 
@@ -33,20 +31,20 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Integer searchIndex(Integer id) {
+    protected Integer searchIndex(Object id) {
         if (resumesMap.containsKey(id) == true) {
-            return id;
+            return (Integer) id;
         } else
             return NOT_FOUNDED;
     }
 
     @Override
-    protected void setCurrentResume(Integer id, Resume resumeForUpd) {
-        resumesMap.put(id, resumeForUpd);
+    protected void setCurrentResume(Object id, Resume resumeForUpd) {
+        resumesMap.put((Integer) id, resumeForUpd);
     }
 
     @Override
-    protected void saveCurrentResume(Integer id, Resume savingResume) {
+    protected void saveCurrentResume(Object id, Resume savingResume) {
         resumesMap.put(savingResume.getId(), savingResume);
     }
 

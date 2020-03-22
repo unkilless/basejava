@@ -68,7 +68,7 @@ public class MainArray {
 //--------------------------------------------------------------------
                 case (2):
 
-                    List<Resume> outputList = resumesArray.getAll();
+                    List<Resume> outputList = resumesArray.getAllSorted();
                     System.out.println("List of resumes:");
                     for (Resume resume : outputList) {
                             System.out.println("ID: " + resume.getId() + " Name: " + resume.getFullName() + ";");

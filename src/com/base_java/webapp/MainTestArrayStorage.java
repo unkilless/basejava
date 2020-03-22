@@ -27,5 +27,7 @@ public class MainTestArrayStorage {
         for (int i = 0; i < sortedArray.sizeOfArray(); i++)
             System.out.println("ID: " + sortedArray.resumes[i].getId() + "; Name: " + sortedArray.resumes[i].getFullName() + ";");
 
+        sortedArray.update(new Resume("Digohn", 69));
+
     }
 }

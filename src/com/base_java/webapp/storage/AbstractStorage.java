@@ -5,18 +5,16 @@ import com.base_java.webapp.exception.NotExistStorageException;
 import com.base_java.webapp.model.Resume;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.logging.Logger;
 
 public abstract class AbstractStorage implements Storage {
-    protected static Logger logger = Logger.getLogger(ArrayStorage.class.getName());
+    protected static Logger logger = Logger.getLogger(AbstractStorage.class.getName());
     protected Resume resume;
-    protected int size = 0;
 
     public static final Comparator<Resume> RESUME_COMPARATOR = new Comparator<Resume>() {
         @Override
         public int compare(Resume o1, Resume o2) {
-            if (o1 == null || o2 == null)
-                return 1;
             return o1.compareTo(o2);
         }
     };
@@ -71,11 +69,19 @@ public abstract class AbstractStorage implements Storage {
             return false;
     }
 
-    protected abstract Integer searchIndex(Integer id);
+    public List<Resume> getAllSorted() {
+        List<Resume> outputSortedList = convertToListStorage();
+        outputSortedList.sort(RESUME_COMPARATOR);
+        return outputSortedList;
+    }
 
-    protected abstract void setCurrentResume(Integer id, Resume resumeForUpd);
+    protected abstract List<Resume> convertToListStorage();
 
-    protected abstract void saveCurrentResume(Integer id, Resume savingResume);
+    protected abstract Integer searchIndex(Object id);
+
+    protected abstract void setCurrentResume(Object id, Resume resumeForUpd);
+
+    protected abstract void saveCurrentResume(Object id, Resume savingResume);
 
     protected abstract Resume getResume(Integer index);
 

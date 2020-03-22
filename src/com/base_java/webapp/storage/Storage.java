@@ -12,7 +12,7 @@ public interface Storage {
 
     void save(Resume savingResume);
 
-    List<Resume> getAll();
+    List<Resume> getAllSorted();
 
     Resume getByID(Integer ID);
 
