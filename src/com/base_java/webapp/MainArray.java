@@ -108,7 +108,12 @@ public class MainArray {
 //--------------------------------------------------------------------
                 case (7):
                     System.out.println("Pls enter resume ID:");
-                    bufferedID = input.nextInt();
+                    try{
+                    bufferedID = input.nextInt();} catch (InputMismatchException e){
+                        System.out.println("Incorrect data format");
+                        break;
+                    }
+
                     boolean correctInputUpd = false;
                     while (correctInputUpd != true) {
                         System.out.println("Pls input new fullname:");
