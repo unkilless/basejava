@@ -20,7 +20,7 @@ public abstract class AbstractStorage implements Storage {
     };
 
     public void update(Resume resumeForUpd) {
-        Integer index = (Integer) searchKey(resumeForUpd.getId());
+        Object index = searchKey(resumeForUpd.getId());
         if (isExist(index) == true) {
             setCurrentResume(index, resumeForUpd);
             logger.info("Resume updated.");
@@ -31,7 +31,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public void save(Resume savingResume) {
-        Integer index = (Integer) searchKey(savingResume.getId());
+        Object index = searchKey(savingResume.getId());
         if (isExist(index) == false) {
             saveCurrentResume(index, savingResume);
             logger.info("Резюме создано: " + savingResume.getFullName());
@@ -42,7 +42,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public Resume getByID(Integer ID) {
-        Integer index = (Integer) searchKey(ID);
+        Object index = searchKey(ID);
         if (isExist(index) == true) {
             if (ID.equals(getResume(index).getId()))
                 return getResume(index);
@@ -52,7 +52,7 @@ public abstract class AbstractStorage implements Storage {
 
 
     public void deleteByID(Integer ID) {
-        Integer index = (Integer) searchKey(ID);
+        Object index = searchKey(ID);
         if (isExist(index) == true) {
             deleteFindedResume(index);
             logger.info("Resume with ID: " + ID.toString() + " was deleted.");
