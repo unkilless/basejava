@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class CommonTest {
@@ -92,7 +93,7 @@ public abstract class CommonTest {
     @Test
     void getAll() {
         List<Resume> testResumesList = storage.getAllSorted();
-        Assertions.assertEquals(testResumesList.get(0), FIRST_RESUME);
+        Assertions.assertEquals(testResumesList, Arrays.asList(FIRST_RESUME, SECOND_RESUME, THIRD_RESUME));
     }
 
     @Test

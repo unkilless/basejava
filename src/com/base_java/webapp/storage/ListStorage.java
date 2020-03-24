@@ -66,4 +66,8 @@ public class ListStorage extends AbstractStorage {
     protected void deleteFindedResume (int index) {
         resumesList.remove(index);
     };
+
+    protected boolean isExist(Object index) {
+        return  (Integer) index >= 0;
+    }
 }

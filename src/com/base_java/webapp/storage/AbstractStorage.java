@@ -20,7 +20,7 @@ public abstract class AbstractStorage implements Storage {
     };
 
     public void update(Resume resumeForUpd) {
-        Integer index = searchIndex(resumeForUpd.getId());
+        Integer index = (Integer) searchIndex(resumeForUpd.getId());
         if (isExist(index) == true) {
             setCurrentResume(index, resumeForUpd);
             logger.info("Resume updated.");
@@ -31,7 +31,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public void save(Resume savingResume) {
-        Integer index = searchIndex(savingResume.getId());
+        Integer index = (Integer) searchIndex(savingResume.getId());
         if (isExist(index) == false) {
             saveCurrentResume(index, savingResume);
             logger.info("Резюме создано: " + savingResume.getFullName());
@@ -42,7 +42,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public Resume getByID(Integer ID) {
-        Integer index = searchIndex(ID);
+        Integer index = (Integer) searchIndex(ID);
         if (isExist(index) == true) {
             if (ID.equals(getResume(index).getId()))
                 return getResume(index);
@@ -52,7 +52,7 @@ public abstract class AbstractStorage implements Storage {
 
 
     public void deleteByID(Integer ID) {
-        Integer index = searchIndex(ID);
+        Integer index = (Integer) searchIndex(ID);
         if (isExist(index) == true) {
             deleteFindedResume(index);
             logger.info("Resume with ID: " + ID.toString() + " was deleted.");
@@ -62,12 +62,7 @@ public abstract class AbstractStorage implements Storage {
         }
     }
 
-    protected boolean isExist(Integer index) {
-        if (index >= 0) {
-            return true;
-        } else
-            return false;
-    }
+    protected abstract boolean isExist(Object index);
 
     public List<Resume> getAllSorted() {
         List<Resume> outputSortedList = convertToListStorage();
@@ -77,7 +72,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract List<Resume> convertToListStorage();
 
-    protected abstract Integer searchIndex(Object id);
+    protected abstract Object searchIndex(Object id);
 
     protected abstract void setCurrentResume(Object id, Resume resumeForUpd);
 

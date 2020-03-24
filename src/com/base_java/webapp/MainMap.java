@@ -1,7 +1,7 @@
 package com.base_java.webapp;
 
 import com.base_java.webapp.model.Resume;
-import com.base_java.webapp.storage.MapStorageLongKey;
+import com.base_java.webapp.storage.MapStorageStringKey;
 import com.base_java.webapp.storage.Storage;
 
 import java.util.List;
@@ -9,11 +9,12 @@ import java.util.List;
 public class MainMap {
     public static void main(String[] args) {
         //Storage mapStorage = new MapStorage();
-        Storage mapStorage = new MapStorageLongKey();
+        Storage mapStorage = new MapStorageStringKey();
 
         mapStorage.save(new Resume("Iban", 37));
         mapStorage.save(new Resume("Gena", 77));
         mapStorage.save(new Resume("Vadim", 83));
+        mapStorage.save(new Resume("Igor", 1));
 
         System.out.println("Size of DB: " + mapStorage.sizeOfArray() + "\nResumes: ");
         List<Resume> outputResumes;

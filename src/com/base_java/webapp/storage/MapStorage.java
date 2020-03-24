@@ -32,10 +32,11 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Integer searchIndex(Object id) {
-        if (resumesMap.containsKey(id) == true) {
-            return (Integer) id;
-        } else
-            return NOT_FOUNDED;
+        return (Integer) id;
+    }
+
+    protected boolean isExist(Object index) {
+        return resumesMap.containsKey((Integer) index);
     }
 
     @Override

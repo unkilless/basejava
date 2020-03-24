@@ -14,6 +14,8 @@ public class Resume implements Comparable<Resume> {
     }
 
     public Resume(String fullName, int id) {
+        Objects.requireNonNull(fullName, "FullName can't be empty");
+        Objects.requireNonNull(id, "Enter not null and unique ID");
         this.fullName = fullName;
         this.id = id;
     }
@@ -52,7 +54,9 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        int result = id.hashCode();
+        result = 31 * result + fullName.hashCode();
+        return result;
     }
 
     @Override

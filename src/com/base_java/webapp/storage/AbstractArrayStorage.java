@@ -58,6 +58,13 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return outputArrayOfIndexes;
     }
 
+    protected boolean isExist(Object index) {
+        if ((Integer) index >= 0) {
+            return true;
+        } else
+            return false;
+    }
+
     public abstract void insertElement(Resume savingResume, Integer index);
 
     public abstract void fillDeleteElement(Integer index);
