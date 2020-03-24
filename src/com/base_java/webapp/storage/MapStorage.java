@@ -50,12 +50,12 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResume(Integer index) {
-        return resumesMap.get(index);
+    protected Resume getResume(Object index) {
+        return resumesMap.get((Integer) index);
     }
 
     @Override
-    protected void deleteFindedResume(int index) {
-        resumesMap.remove(index);
+    protected void deleteFindedResume(Object index) {
+        resumesMap.remove((Integer) index);
     }
 }

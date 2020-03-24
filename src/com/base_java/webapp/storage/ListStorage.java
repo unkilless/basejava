@@ -59,12 +59,13 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResume(Integer index) {
-        return resumesList.get(index);
+    protected Resume getResume(Object index) {
+        return resumesList.get((Integer) index);
     }
 
-    protected void deleteFindedResume (int index) {
-        resumesList.remove(index);
+    protected void deleteFindedResume (Object index) {
+        Integer bufferedIndex = (Integer) index;
+        resumesList.remove(bufferedIndex.intValue());
     };
 
     protected boolean isExist(Object index) {

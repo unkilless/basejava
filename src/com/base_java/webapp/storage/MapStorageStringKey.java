@@ -34,13 +34,13 @@ public class MapStorageStringKey extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResume(Integer index) {
+    protected Resume getResume(Object index) {
         return resumesMapStorageStringKey.get(index.toString());
     }
 
     @Override
-    protected void deleteFindedResume(int index) {
-        Integer bufferedId = index;
+    protected void deleteFindedResume(Object index) {
+        Integer bufferedId = (Integer) index;
         resumesMapStorageStringKey.remove(bufferedId.toString());
     }
 

@@ -78,8 +78,8 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void saveCurrentResume(Object id, Resume savingResume);
 
-    protected abstract Resume getResume(Integer index);
+    protected abstract Resume getResume(Object index);
 
-    protected abstract void deleteFindedResume(int index);
+    protected abstract void deleteFindedResume(Object index);
 
 }

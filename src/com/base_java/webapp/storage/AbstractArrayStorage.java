@@ -39,12 +39,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         } else throw new StorageOverflow(savingResume.getId());
     }
 
-    protected Resume getResume(Integer index) {
-        return resumes[index];
+    protected Resume getResume(Object index) {
+        return resumes[(Integer) index];
     }
 
-    protected void deleteFindedResume(int index) {
-        fillDeleteElement(index);
+    protected void deleteFindedResume(Object index) {
+        fillDeleteElement((Integer) index);
         size--;
     }
 
