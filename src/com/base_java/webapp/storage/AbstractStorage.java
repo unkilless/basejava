@@ -20,7 +20,7 @@ public abstract class AbstractStorage implements Storage {
     };
 
     public void update(Resume resumeForUpd) {
-        Integer index = (Integer) searchIndex(resumeForUpd.getId());
+        Integer index = (Integer) searchKey(resumeForUpd.getId());
         if (isExist(index) == true) {
             setCurrentResume(index, resumeForUpd);
             logger.info("Resume updated.");
@@ -31,7 +31,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public void save(Resume savingResume) {
-        Integer index = (Integer) searchIndex(savingResume.getId());
+        Integer index = (Integer) searchKey(savingResume.getId());
         if (isExist(index) == false) {
             saveCurrentResume(index, savingResume);
             logger.info("Резюме создано: " + savingResume.getFullName());
@@ -42,7 +42,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public Resume getByID(Integer ID) {
-        Integer index = (Integer) searchIndex(ID);
+        Integer index = (Integer) searchKey(ID);
         if (isExist(index) == true) {
             if (ID.equals(getResume(index).getId()))
                 return getResume(index);
@@ -52,7 +52,7 @@ public abstract class AbstractStorage implements Storage {
 
 
     public void deleteByID(Integer ID) {
-        Integer index = (Integer) searchIndex(ID);
+        Integer index = (Integer) searchKey(ID);
         if (isExist(index) == true) {
             deleteFindedResume(index);
             logger.info("Resume with ID: " + ID.toString() + " was deleted.");
@@ -72,7 +72,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract List<Resume> convertToListStorage();
 
-    protected abstract Object searchIndex(Object id);
+    protected abstract Object searchKey(Object id);
 
     protected abstract void setCurrentResume(Object id, Resume resumeForUpd);
 

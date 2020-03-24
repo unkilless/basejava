@@ -39,7 +39,7 @@ public class ListStorage extends AbstractStorage {
         return new int[0];
     }
 
-    protected Integer searchIndex(Object id){
+    protected Integer searchKey(Object id){
         try {
            Integer counter = 0;
            Iterator<Resume> it = resumesList.iterator();

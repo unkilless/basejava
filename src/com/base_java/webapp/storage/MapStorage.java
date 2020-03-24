@@ -31,7 +31,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Integer searchIndex(Object id) {
+    protected Integer searchKey(Object id) {
         return (Integer) id;
     }
 
