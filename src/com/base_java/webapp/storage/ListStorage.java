@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage<Integer> {
 
     protected static final int EMPTY_LIST = 0;
     protected static final int NOT_FOUNDED = -1;
@@ -20,7 +20,7 @@ public class ListStorage extends AbstractStorage {
         }
     }
 
-    public void saveCurrentResume(Object id, Resume savingResume) {
+    public void saveCurrentResume(Integer id, Resume savingResume) {
                 resumesList.add(savingResume);
     }
 
@@ -39,7 +39,7 @@ public class ListStorage extends AbstractStorage {
         return new int[0];
     }
 
-    protected Integer searchKey(Object id){
+    protected Integer searchKey(Integer id){
         try {
            Integer counter = 0;
            Iterator<Resume> it = resumesList.iterator();
@@ -54,21 +54,20 @@ public class ListStorage extends AbstractStorage {
         }
     }
 
-    protected void setCurrentResume(Object id, Resume resumeForUpd){
-        resumesList.set((Integer) id, resumeForUpd);
+    protected void setCurrentResume(Integer id, Resume resumeForUpd){
+        resumesList.set(id, resumeForUpd);
     }
 
     @Override
-    protected Resume getResume(Object index) {
-        return resumesList.get((Integer) index);
+    protected Resume getResume(Integer index) {
+        return resumesList.get(index);
     }
 
-    protected void deleteFindedResume (Object index) {
-        Integer bufferedIndex = (Integer) index;
-        resumesList.remove(bufferedIndex.intValue());
+    protected void deleteFindedResume (Integer index) {
+        resumesList.remove(index.intValue());
     };
 
-    protected boolean isExist(Object index) {
-        return  (Integer) index >= 0;
+    protected boolean isExist(Integer index) {
+        return  index >= 0;
     }
 }

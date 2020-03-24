@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int RESUME_NOT_FOUND = -1;
     protected static Logger logger = Logger.getLogger(AbstractArrayStorage.class.getName());
     protected static final int MAX_LENGTH = 10000;
@@ -28,23 +28,23 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    protected void setCurrentResume(Object index, Resume resumeForUpd) {
-        resumes[(int) index].setFullName(resumeForUpd.getFullName());
+    protected void setCurrentResume(Integer index, Resume resumeForUpd) {
+        resumes[index].setFullName(resumeForUpd.getFullName());
     }
 
-    protected void saveCurrentResume(Object id, Resume savingResume) {
+    protected void saveCurrentResume(Integer id, Resume savingResume) {
         if (size <= MAX_LENGTH - 1) {
-            insertElement(savingResume, (int) id);
+            insertElement(savingResume, id);
             size++;
         } else throw new StorageOverflow(savingResume.getId());
     }
 
-    protected Resume getResume(Object index) {
-        return resumes[(Integer) index];
+    protected Resume getResume(Integer index) {
+        return resumes[index];
     }
 
-    protected void deleteFindedResume(Object index) {
-        fillDeleteElement((Integer) index);
+    protected void deleteFindedResume(Integer index) {
+        fillDeleteElement(index);
         size--;
     }
 
@@ -58,8 +58,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return outputArrayOfIndexes;
     }
 
-    protected boolean isExist(Object index) {
-        if ((Integer) index >= 0) {
+    protected boolean isExist(Integer index) {
+        if (index >= 0) {
             return true;
         } else
             return false;

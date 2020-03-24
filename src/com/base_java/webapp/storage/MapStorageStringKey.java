@@ -7,8 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapStorageStringKey extends AbstractStorage {
-    protected static final int NOT_FOUNDED = -1;
+public class MapStorageStringKey extends AbstractStorage<String> {
     protected Map<String, Resume> resumesMapStorageStringKey = new HashMap<>();
 
     @Override
@@ -18,30 +17,29 @@ public class MapStorageStringKey extends AbstractStorage {
     }
 
     @Override
-    protected Integer searchKey(Object id) {
-        return (Integer) id;
+    protected String searchKey(Integer id) {
+        return id.toString();
     }
 
     @Override
-    protected void setCurrentResume(Object id, Resume resumeForUpd) {
-        resumesMapStorageStringKey.put(id.toString(), resumeForUpd);
+    protected void setCurrentResume(String id, Resume resumeForUpd) {
+        resumesMapStorageStringKey.put(id, resumeForUpd);
     }
 
     @Override
-    protected void saveCurrentResume(Object id, Resume savingResume) {
+    protected void saveCurrentResume(String id, Resume savingResume) {
         Integer bufferedId = savingResume.getId();
         resumesMapStorageStringKey.put(bufferedId.toString(), savingResume);
     }
 
     @Override
-    protected Resume getResume(Object index) {
-        return resumesMapStorageStringKey.get(index.toString());
+    protected Resume getResume(String index) {
+        return resumesMapStorageStringKey.get(index);
     }
 
     @Override
-    protected void deleteFindedResume(Object index) {
-        Integer bufferedId = (Integer) index;
-        resumesMapStorageStringKey.remove(bufferedId.toString());
+    protected void deleteFindedResume(String index) {
+        resumesMapStorageStringKey.remove(index);
     }
 
     @Override
@@ -59,7 +57,7 @@ public class MapStorageStringKey extends AbstractStorage {
         return new int[0];
     }
 
-    protected boolean isExist(Object index) {
-        return resumesMapStorageStringKey.containsKey(index.toString());
+    protected boolean isExist(String index) {
+        return resumesMapStorageStringKey.containsKey(index);
     }
 }

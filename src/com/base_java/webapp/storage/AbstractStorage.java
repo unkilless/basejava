@@ -8,7 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
-public abstract class AbstractStorage implements Storage {
+public abstract class AbstractStorage<SK> implements Storage {
     protected static Logger logger = Logger.getLogger(AbstractStorage.class.getName());
     protected Resume resume;
 
@@ -19,8 +19,20 @@ public abstract class AbstractStorage implements Storage {
         }
     };
 
+    protected abstract List<Resume> convertToListStorage();
+
+    protected abstract SK searchKey(Integer id);
+
+    protected abstract void setCurrentResume(SK id, Resume resumeForUpd);
+
+    protected abstract void saveCurrentResume(SK id, Resume savingResume);
+
+    protected abstract Resume getResume(SK index);
+
+    protected abstract void deleteFindedResume(SK index);
+
     public void update(Resume resumeForUpd) {
-        Object index = searchKey(resumeForUpd.getId());
+        SK index = searchKey(resumeForUpd.getId());
         if (isExist(index) == true) {
             setCurrentResume(index, resumeForUpd);
             logger.info("Resume updated.");
@@ -31,7 +43,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public void save(Resume savingResume) {
-        Object index = searchKey(savingResume.getId());
+        SK index = searchKey(savingResume.getId());
         if (isExist(index) == false) {
             saveCurrentResume(index, savingResume);
             logger.info("Резюме создано: " + savingResume.getFullName());
@@ -42,7 +54,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public Resume getByID(Integer ID) {
-        Object index = searchKey(ID);
+        SK index = searchKey(ID);
         if (isExist(index) == true) {
             if (ID.equals(getResume(index).getId()))
                 return getResume(index);
@@ -52,7 +64,7 @@ public abstract class AbstractStorage implements Storage {
 
 
     public void deleteByID(Integer ID) {
-        Object index = searchKey(ID);
+        SK index = searchKey(ID);
         if (isExist(index) == true) {
             deleteFindedResume(index);
             logger.info("Resume with ID: " + ID.toString() + " was deleted.");
@@ -62,24 +74,12 @@ public abstract class AbstractStorage implements Storage {
         }
     }
 
-    protected abstract boolean isExist(Object index);
+    protected abstract boolean isExist(SK index);
 
     public List<Resume> getAllSorted() {
         List<Resume> outputSortedList = convertToListStorage();
         outputSortedList.sort(RESUME_COMPARATOR);
         return outputSortedList;
     }
-
-    protected abstract List<Resume> convertToListStorage();
-
-    protected abstract Object searchKey(Object id);
-
-    protected abstract void setCurrentResume(Object id, Resume resumeForUpd);
-
-    protected abstract void saveCurrentResume(Object id, Resume savingResume);
-
-    protected abstract Resume getResume(Object index);
-
-    protected abstract void deleteFindedResume(Object index);
 
 }
