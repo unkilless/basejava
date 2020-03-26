@@ -1,11 +1,10 @@
 package com.base_java.webapp.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ListField extends FieldType {
-    protected List<String> listField = new ArrayList<>();
+    protected List<String> listField;
 
     public ListField(List<String> listField) {
         this.listField = listField;
@@ -13,6 +12,13 @@ public class ListField extends FieldType {
 
     public List<String> getListField() {
         return listField;
+    }
+
+    @Override
+    public String toString() {
+        return "ListField{" +
+                "listField=" + listField +
+                '}';
     }
 
     @Override
