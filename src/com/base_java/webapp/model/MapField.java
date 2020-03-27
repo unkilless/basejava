@@ -1,19 +1,25 @@
 package com.base_java.webapp.model;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 public class MapField extends FieldType {
-    //KEY == organisation name
-    protected Map<String, MapStructValue> mapField = new HashMap<>();
+    //KEY == dates
+    protected Map<String, MapStructValue> mapField;
 
-    public MapField(String organisationName, MapStructValue mapValue) {
-        this.mapField.put(organisationName, mapValue);
+    public MapField(Map<String, MapStructValue> mapField) {
+        this.mapField = mapField;
     }
 
     public Map<String, MapStructValue> getMapField() {
         return mapField;
+    }
+
+    @Override
+    public String toString() {
+        return "MapField{" +
+                "mapField=" + mapField +
+                '}';
     }
 
     @Override
