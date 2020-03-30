@@ -1,11 +1,13 @@
 package com.base_java.webapp.model;
 
 public enum ContactType {
-    PHONE("Телефон"),
-    EMAIL("Мыло"),
-    SKYPE ("Скайп"),
-    PROFILES ("Профили во всякой херне"),
-    HOMEPAGE("Домашняя страница");
+    PHONE("Тел."),
+    SKYPE("Skype"),
+    EMAIL("Почта"),
+    LINKEDIN("Профиль LinkedIn"),
+    GITHUB("Профиль GitHub"),
+    STACKOVERFLOW("Профиль StackOverflow"),
+    WEBSITE("Домашняя страница");
 
     private String title;
 

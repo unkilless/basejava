@@ -3,7 +3,7 @@ package com.base_java.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class ListField extends FieldType {
+public class ListField extends AbstractSection {
     protected List<String> listField;
 
     public ListField(List<String> listField) {

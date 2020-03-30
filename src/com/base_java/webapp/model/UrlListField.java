@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class UrlListField extends FieldType {
+public class UrlListField extends AbstractSection {
     List<URL> urlList = new ArrayList<>();
 
     public UrlListField(List<URL> urlList) {

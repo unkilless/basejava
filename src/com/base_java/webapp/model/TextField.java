@@ -2,7 +2,7 @@ package com.base_java.webapp.model;
 
 import java.util.Objects;
 
-public class TextField extends FieldType {
+public class TextField extends AbstractSection {
     protected String textField;
 
     public TextField(String textField) {

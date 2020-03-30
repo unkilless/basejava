@@ -1,12 +1,12 @@
 package com.base_java.webapp.model;
 
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 public class Resume implements Comparable<Resume> {
     private Integer id;
     private String fullName;
+    private Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
+    private Map<ContactType, Contact> contacts = new EnumMap<>(ContactType.class);
 
     public Resume() {
         this.id = (int) (Math.random() * 1000);
@@ -24,16 +24,28 @@ public class Resume implements Comparable<Resume> {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public AbstractSection getSections(SectionType sectionType) {
+        return sections.get(sectionType);
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setSections(SectionType sectionType, AbstractSection section) {
+        sections.put(sectionType, section);
+    }
+
+    public Contact getContacts(ContactType contactType) {
+        return contacts.get(contactType);
+    }
+
+    public void setContacts(ContactType contactType, Contact contact) {
+        contacts.put(contactType, contact);
     }
 
     public String getFullName() {
         return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     @Override
