@@ -1,15 +1,16 @@
 package com.base_java.webapp.model;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Organization {
-    private String dateStart;
-    private String dateEnd;
+    private LocalDate dateStart;
+    private LocalDate dateEnd;
     private UrlField organisationInfo;
     private String position;
     private String description;
 
-    public Organization( String dateStart, String dateEnd, String organisation, String url, String position, String description) {
+    public Organization(LocalDate dateStart, LocalDate dateEnd, String organisation, String url, String position, String description) {
         Objects.requireNonNull(position, "Pls enter your position");
         Objects.requireNonNull(dateStart, "Pls enter start date");
         this.organisationInfo = new UrlField(organisation, url);
@@ -47,11 +48,11 @@ public class Organization {
                 '}';
     }
 
-    public String getDateEnd() {
+    public LocalDate getDateEnd() {
         return dateEnd;
     }
 
-    public String getDateStart() {
+    public LocalDate getDateStart() {
         return dateStart;
     }
 
