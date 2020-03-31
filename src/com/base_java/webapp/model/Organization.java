@@ -5,19 +5,16 @@ import java.util.Objects;
 public class Organization {
     private String dateStart;
     private String dateEnd;
-    private String organisation;
+    private UrlField organisationInfo;
     private String position;
     private String description;
-    private UrlField homePage;
 
-    public Organization( String dateStart, String dateEnd, String organisation, String position, String description, UrlField homePage) {
-        Objects.requireNonNull(organisation, "Pls enter correct dates");
+    public Organization( String dateStart, String dateEnd, String organisation, String url, String position, String description) {
         Objects.requireNonNull(position, "Pls enter your position");
         Objects.requireNonNull(dateStart, "Pls enter start date");
-        this.organisation = organisation;
+        this.organisationInfo = new UrlField(organisation, url);
         this.position = position;
         this.description = description;
-        this.homePage = homePage;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
     }
@@ -27,28 +24,26 @@ public class Organization {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
-        return Objects.equals(dateStart, that.dateStart) &&
-                Objects.equals(dateEnd, that.dateEnd) &&
-                Objects.equals(organisation, that.organisation) &&
+        return dateStart.equals(that.dateStart) &&
+                dateEnd.equals(that.dateEnd) &&
+                Objects.equals(organisationInfo, that.organisationInfo) &&
                 Objects.equals(position, that.position) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(homePage, that.homePage);
+                Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dateStart, dateEnd, organisation, position, description, homePage);
+        return Objects.hash(dateStart, dateEnd, organisationInfo, position, description);
     }
 
     @Override
     public String toString() {
         return "Organization{" +
-                "dateStart=" + dateStart +
-                ", dateEnd=" + dateEnd +
-                ", organisation='" + organisation + '\'' +
+                "dateStart='" + dateStart + '\'' +
+                ", dateEnd='" + dateEnd + '\'' +
+                ", organisationInfo=" + organisationInfo +
                 ", position='" + position + '\'' +
                 ", description='" + description + '\'' +
-                ", homePage=" + homePage +
                 '}';
     }
 
@@ -58,14 +53,6 @@ public class Organization {
 
     public String getDateStart() {
         return dateStart;
-    }
-
-    public UrlField getHomePage() {
-        return homePage;
-    }
-
-    public String getOrganisation() {
-        return organisation;
     }
 
     public String getPosition() {

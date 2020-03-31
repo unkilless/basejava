@@ -1,22 +1,46 @@
 package com.base_java.webapp.model;
 
-import java.net.URL;
+import java.util.Objects;
 
 public class UrlField extends AbstractSection {
-    private URL link;
+    private final String name;
+    private final String url;
 
-    public UrlField(URL link) {
-        this.link = link;
+    public UrlField(String name, String url) {
+        Objects.requireNonNull(name, "name must not be null");
+        this.name = name;
+        this.url = url;
     }
 
-    public URL getLink() {
-        return link;
+    public String getName() {
+        return name;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     @Override
     public String toString() {
-        return "UrlField{" +
-                "link=" + link +
-                '}';
+        return "Link(" + name + ',' + url + ')';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UrlField link = (UrlField) o;
+
+        if (!name.equals(link.name)) return false;
+        return url != null ? url.equals(link.url) : link.url == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        return result;
     }
 }
