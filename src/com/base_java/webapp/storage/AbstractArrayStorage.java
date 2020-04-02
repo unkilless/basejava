@@ -28,22 +28,22 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
         size = 0;
     }
 
-    protected void setCurrentResume(Integer index, Resume resumeForUpd) {
+    protected void doUpdate(Integer index, Resume resumeForUpd) {
         resumes[index].setFullName(resumeForUpd.getFullName());
     }
 
-    protected void saveCurrentResume(Integer id, Resume savingResume) {
+    protected void doSave(Integer id, Resume savingResume) {
         if (size <= MAX_LENGTH - 1) {
             insertElement(savingResume, id);
             size++;
         } else throw new StorageOverflow(savingResume.getId());
     }
 
-    protected Resume getResume(Integer index) {
+    protected Resume doGet(Integer index) {
         return resumes[index];
     }
 
-    protected void deleteFindedResume(Integer index) {
+    protected void doDelete(Integer index) {
         fillDeleteElement(index);
         size--;
     }

@@ -4,7 +4,7 @@ import com.base_java.webapp.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
 
-    protected Integer searchKey(Integer findingId) {
+    protected Integer getSearchKey(Integer findingId) {
         for (int i = 0; i < size; i++) {
             if (findingId.equals(resumes[i].getId()))
                 return i;

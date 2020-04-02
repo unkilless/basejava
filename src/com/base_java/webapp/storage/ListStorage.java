@@ -20,7 +20,7 @@ public class ListStorage extends AbstractStorage<Integer> {
         }
     }
 
-    public void saveCurrentResume(Integer id, Resume savingResume) {
+    public void doSave(Integer id, Resume savingResume) {
                 resumesList.add(savingResume);
     }
 
@@ -39,7 +39,7 @@ public class ListStorage extends AbstractStorage<Integer> {
         return new int[0];
     }
 
-    protected Integer searchKey(Integer id){
+    protected Integer getSearchKey(Integer id){
         try {
            Integer counter = 0;
            Iterator<Resume> it = resumesList.iterator();
@@ -54,16 +54,16 @@ public class ListStorage extends AbstractStorage<Integer> {
         }
     }
 
-    protected void setCurrentResume(Integer id, Resume resumeForUpd){
+    protected void doUpdate(Integer id, Resume resumeForUpd){
         resumesList.set(id, resumeForUpd);
     }
 
     @Override
-    protected Resume getResume(Integer index) {
+    protected Resume doGet(Integer index) {
         return resumesList.get(index);
     }
 
-    protected void deleteFindedResume (Integer index) {
+    protected void doDelete(Integer index) {
         resumesList.remove(index.intValue());
     };
 

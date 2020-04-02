@@ -17,28 +17,28 @@ public class MapStorageStringKey extends AbstractStorage<String> {
     }
 
     @Override
-    protected String searchKey(Integer id) {
+    protected String getSearchKey(Integer id) {
         return id.toString();
     }
 
     @Override
-    protected void setCurrentResume(String id, Resume resumeForUpd) {
+    protected void doUpdate(String id, Resume resumeForUpd) {
         resumesMapStorageStringKey.put(id, resumeForUpd);
     }
 
     @Override
-    protected void saveCurrentResume(String id, Resume savingResume) {
+    protected void doSave(String id, Resume savingResume) {
         Integer bufferedId = savingResume.getId();
         resumesMapStorageStringKey.put(bufferedId.toString(), savingResume);
     }
 
     @Override
-    protected Resume getResume(String index) {
+    protected Resume doGet(String index) {
         return resumesMapStorageStringKey.get(index);
     }
 
     @Override
-    protected void deleteFindedResume(String index) {
+    protected void doDelete(String index) {
         resumesMapStorageStringKey.remove(index);
     }
 

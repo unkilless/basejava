@@ -44,12 +44,12 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     @Override
-    protected File searchKey(Integer file) {
+    protected File getSearchKey(Integer file) {
         return new File(directory, file.toString());
     }
 
     @Override
-    protected void setCurrentResume(File file, Resume resumeForUpd) {
+    protected void doUpdate(File file, Resume resumeForUpd) {
         try {
             doWrite(resumeForUpd, file);
         } catch (IOException e) {
@@ -58,7 +58,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     @Override
-    protected void saveCurrentResume(File file, Resume savingResume) {
+    protected void doSave(File file, Resume savingResume) {
         try {
             doWrite(savingResume, file);
             file.createNewFile();
@@ -68,7 +68,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     @Override
-    protected Resume getResume(File file) {
+    protected Resume doGet(File file) {
         try {
             return doRead(file);
         } catch (IOException e) {
@@ -78,7 +78,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     @Override
-    protected void deleteFindedResume(File file) {
+    protected void doDelete(File file) {
         file.delete();
     }
 

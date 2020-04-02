@@ -21,20 +21,20 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     protected abstract List<Resume> convertToListStorage();
 
-    protected abstract SK searchKey(Integer id);
+    protected abstract SK getSearchKey(Integer id);
 
-    protected abstract void setCurrentResume(SK id, Resume resumeForUpd);
+    protected abstract void doUpdate(SK id, Resume resumeForUpd);
 
-    protected abstract void saveCurrentResume(SK id, Resume savingResume);
+    protected abstract void doSave(SK id, Resume savingResume);
 
-    protected abstract Resume getResume(SK index);
+    protected abstract Resume doGet(SK index);
 
-    protected abstract void deleteFindedResume(SK index);
+    protected abstract void doDelete(SK index);
 
     public void update(Resume resumeForUpd) {
-        SK index = searchKey(resumeForUpd.getId());
+        SK index = getSearchKey(resumeForUpd.getId());
         if (isExist(index) == true) {
-            setCurrentResume(index, resumeForUpd);
+            doUpdate(index, resumeForUpd);
             logger.info("Resume updated.");
         } else {
             logger.info("Not found.");
@@ -43,9 +43,9 @@ public abstract class AbstractStorage<SK> implements Storage {
     }
 
     public void save(Resume savingResume) {
-        SK index = searchKey(savingResume.getId());
+        SK index = getSearchKey(savingResume.getId());
         if (isExist(index) == false) {
-            saveCurrentResume(index, savingResume);
+            doSave(index, savingResume);
             logger.info("Резюме создано: " + savingResume.getFullName());
         } else {
             logger.info("Resume not saved. Your new resume record has equal ID.");
@@ -54,19 +54,19 @@ public abstract class AbstractStorage<SK> implements Storage {
     }
 
     public Resume getByID(Integer ID) {
-        SK index = searchKey(ID);
+        SK index = getSearchKey(ID);
         if (isExist(index) == true) {
-            if (ID.equals(getResume(index).getId()))
-                return getResume(index);
+            if (ID.equals(doGet(index).getId()))
+                return doGet(index);
         }
         return null;
     }
 
 
     public void deleteByID(Integer ID) {
-        SK index = searchKey(ID);
+        SK index = getSearchKey(ID);
         if (isExist(index) == true) {
-            deleteFindedResume(index);
+            doDelete(index);
             logger.info("Resume with ID: " + ID.toString() + " was deleted.");
         } else {
             logger.info("Resume not founded.");

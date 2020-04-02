@@ -30,7 +30,7 @@ public class MapStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected Integer searchKey(Integer id) {
+    protected Integer getSearchKey(Integer id) {
         return id;
     }
 
@@ -39,22 +39,22 @@ public class MapStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected void setCurrentResume(Integer id, Resume resumeForUpd) {
+    protected void doUpdate(Integer id, Resume resumeForUpd) {
         resumesMap.put(id, resumeForUpd);
     }
 
     @Override
-    protected void saveCurrentResume(Integer id, Resume savingResume) {
+    protected void doSave(Integer id, Resume savingResume) {
         resumesMap.put(savingResume.getId(), savingResume);
     }
 
     @Override
-    protected Resume getResume(Integer index) {
+    protected Resume doGet(Integer index) {
         return resumesMap.get(index);
     }
 
     @Override
-    protected void deleteFindedResume(Integer index) {
+    protected void doDelete(Integer index) {
         resumesMap.remove(index);
     }
 }
