@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 public class MainFile {
 
-    public static List getListFiles(File checkingFile) {
+    public static List<File> getListFiles(File checkingFile) {
         List<File> listFiles = new ArrayList<>();
         if (checkingFile.isDirectory()) {
             listFiles = Arrays.asList(checkingFile.listFiles());
@@ -30,6 +30,16 @@ public class MainFile {
             return listFiles;
         }
         return null;
+
+//        File[] _files = Objects.requireNonNull(checkingFile.listFiles());
+//        for (File file : _files) {
+//            if (file.isDirectory()) {
+//                getListFiles(file, files);
+//            } else {
+//                files.add(file);
+//            }
+//        }
+//        return files;
     }
 
     public static void main(String[] args) {
@@ -50,15 +60,8 @@ public class MainFile {
         String[] list = dir.list();
         listFiles = getListFiles(dir);
         Iterator<File> iterator = listFiles.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             System.out.println(iterator.next());
-        }
-        if (list != null) {
-            for (String name : list) {
-                System.out.println(name + ":\n");
-
-            }
-
         }
 
         try (

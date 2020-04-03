@@ -60,8 +60,8 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doSave(File file, Resume savingResume) {
         try {
-            doWrite(savingResume, file);
             file.createNewFile();
+            doWrite(savingResume, file);
         } catch (IOException e) {
             throw new StorageException("Can't create file", savingResume.getId());
         }
