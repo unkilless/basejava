@@ -1,115 +1,81 @@
 package com.base_java.webapp.storage;
 
-import com.base_java.webapp.model.Resume;
+import com.base_java.webapp.model.*;
+
+import java.time.LocalDate;
+import java.util.Arrays;
 
 public class ResumeTestData {
-//    public static final String UUID_1 = "uuid1";
-//    public static final String UUID_2 = "uuid2";
-//    public static final String UUID_3 = "uuid3";
-//    public static final String UUID_4 = "uuid4";
-//    public static final Resume RESUME_1 = new Resume(UUID_1, "Frank Rearden");
-//    public static final Resume RESUME_2 = new Resume(UUID_2, "Petrov Petr Petrovich");
-//    public static final Resume RESUME_3 = new Resume(UUID_3, "Ivanov Ivan Ivanovich");
-//    public static final Resume RESUME_4 = new Resume(UUID_4, "Sidorov Ivan Ivanovich");
-//
-//    static {
-//        // Init Resume-1
-//        RESUME_1.setSection(SectionType.PERSONAL, new TextSection("Test personal 1"));
-//        RESUME_1.setSection(SectionType.OBJECTIVE, new TextSection("Test objective 1"));
-//        RESUME_1.setSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Test achievement 1", "Test achievement 2")));
-//        RESUME_1.setSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("Test qualification 1", "Test qualification 2")));
-//        RESUME_1.setSection(SectionType.EXPERIENCE, new InstitutionSection(Arrays.asList(
-//                new Institution(new HyperLink("TestPageExperience 1", "TestURL"), "Test experience 1", LocalDate.of(2008, 10, 1), LocalDate.of(2013, 10, 1), "University")
-//        )));
-//        RESUME_1.setSection(SectionType.EDUCATION, new InstitutionSection(Arrays.asList(
-//                new Institution(new HyperLink("TestPageEducation", "TestURL"), "Test education 1", LocalDate.of(2012, 10, 1), LocalDate.of(2013, 10, 12), "Test description")))
-//        );
-//        RESUME_1.setContact(ContactType.WEBSITE, "www.testsite.com");
-//
-//        // Init Resume-2
-//        RESUME_2.setSection(SectionType.PERSONAL, new TextSection("Test personal 2"));
-//        RESUME_2.setSection(SectionType.OBJECTIVE, new TextSection("Test objective 2"));
-//        RESUME_2.setSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Test achievement 1", "Test achievement 2")));
-//        RESUME_2.setSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("Test qualification 1", "Test qualification 2")));
-//        RESUME_2.setSection(SectionType.EXPERIENCE, new InstitutionSection(Arrays.asList(
-//                new Institution(new HyperLink("TestPageExperience 2", "TestURL"), "Test experience 2", LocalDate.of(2008, 10, 1), LocalDate.of(2013, 10, 1), "University")
-//        )));
-//        RESUME_2.setSection(SectionType.EDUCATION, new InstitutionSection(Arrays.asList(
-//                new Institution(new HyperLink("TestPageEducation", "TestURL"), "Test education 2", LocalDate.of(2012, 10, 1), LocalDate.of(2013, 10, 12), "Test description")))
-//        );
-//        RESUME_2.setContact(ContactType.WEBSITE, "www.testsite.com");
-//
-//        // Init Resume-3
-//        RESUME_3.setSection(SectionType.PERSONAL, new TextSection("Test personal 3"));
-//        RESUME_3.setSection(SectionType.OBJECTIVE, new TextSection("Test objective 3"));
-//        RESUME_3.setSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Test achievement 1", "Test achievement 2")));
-//        RESUME_3.setSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("Test qualification 1", "Test qualification 2")));
-//        RESUME_3.setSection(SectionType.EXPERIENCE, new InstitutionSection(Arrays.asList(
-//                new Institution(new HyperLink("TestPageExperience 3", "TestURL"), "Test experience 3", LocalDate.of(2008, 10, 1), LocalDate.of(2013, 10, 1), "University")
-//        )));
-//        RESUME_3.setSection(SectionType.EDUCATION, new InstitutionSection(Arrays.asList(
-//                new Institution(new HyperLink("TestPageEducation", "TestURL"), "Test education 3", LocalDate.of(2012, 10, 1), LocalDate.of(2013, 10, 12), "Test description")))
-//        );
-//        RESUME_3.setContact(ContactType.WEBSITE, "www.testsite.com");
-//
-//        // Init Resume-4
-//        RESUME_4.setSection(SectionType.PERSONAL, new TextSection("Test personal 4"));
-//        RESUME_4.setSection(SectionType.OBJECTIVE, new TextSection("Test objective 4"));
-//        RESUME_4.setSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("Test achievement 1", "Test achievement 2")));
-//        RESUME_4.setSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("Test qualification 1", "Test qualification 2")));
-//        RESUME_4.setSection(SectionType.EXPERIENCE, new InstitutionSection(Arrays.asList(
-//                new Institution(new HyperLink("TestPageExperience 4", "TestURL"), "Test experience 4", LocalDate.of(2008, 10, 1), LocalDate.of(2013, 10, 1), "University")
-//        )));
-//        RESUME_4.setSection(SectionType.EDUCATION, new InstitutionSection(Arrays.asList(
-//                new Institution(new HyperLink("TestPageEducation", "TestURL"), "Test education 4", LocalDate.of(2012, 10, 1), LocalDate.of(2013, 10, 12), "Test description")))
-//        );
-//        RESUME_4.setContact(ContactType.WEBSITE, "www.testsite.com");
-//    }
+    public static final String FIRST_NAME = "Iban";
+    public static final int FIRST_ID = 11;
+    public static final Resume FIRST_RESUME = new Resume(FIRST_NAME, FIRST_ID);
+    public static final String SECOND_NAME = "Gena";
+    public static final int SECOND_ID = 22;
+    public static final Resume SECOND_RESUME = new Resume(SECOND_NAME, SECOND_ID);
+    public static final String THIRD_NAME = "Ibragimn";
+    public static final int THIRD_ID = 66;
+    public static final Resume THIRD_RESUME = new Resume(THIRD_NAME, THIRD_ID);
+    public static final Integer MAX_LENGTH = 10000;
+    public static final String FOURTH_NAME = "Georgy";
+    public static final int FOURTH_ID = 77;
+    public static final Resume FOURTH_RESUME = new Resume(FOURTH_NAME, FOURTH_ID);
 
-    private static ResumeTestData INSTANCE;
+    static {
+        FIRST_RESUME.setContacts(ContactType.PHONE, new Contact("7-77-77"));
+        FIRST_RESUME.setContacts(ContactType.EMAIL, new Contact("123865@mail.ru"));
+        FIRST_RESUME.setContacts(ContactType.GITHUB, new Contact("wwww.somegitlink_1.com"));
+        FIRST_RESUME.setContacts(ContactType.LINKEDIN, new Contact("www.somelinkedlink_1.com"));
+        FIRST_RESUME.setContacts(ContactType.STACKOVERFLOW, new Contact("www.newstakoverflow_1.com"));
+        FIRST_RESUME.setContacts(ContactType.SKYPE, new Contact("skype123"));
+        FIRST_RESUME.setContacts(ContactType.WEBSITE, new Contact("www.something_1.ru"));
+        FIRST_RESUME.setSections(SectionType.PERSONAL, new TextField("kryvoi, kosoi"));
+        FIRST_RESUME.setSections(SectionType.ACHIEVEMENT, new TextField("finished MGU"));
+        FIRST_RESUME.setSections(SectionType.OBJECTIVE, new ListField(Arrays.asList("some objective 1.1", "some objective 1.2")));
+        FIRST_RESUME.setSections(SectionType.QUALIFICATIONS, new ListField(Arrays.asList("some qualification 1.1", "some qualification 1.2")));
+        FIRST_RESUME.setSections(SectionType.EXPERIENCE, new OrganisationSection(Arrays.asList(new Organization(new UrlField("some org 1", "www.link_org_1.ru"), Arrays.asList(new Organization.Position("some org position 1", "some org description 1",LocalDate.of(2001, 1, 1), LocalDate.of(2006, 5, 5)))))));
+        FIRST_RESUME.setSections(SectionType.EDUCATION, new OrganisationSection(Arrays.asList(new Organization(new UrlField("some edu 1", "www.link_edu_1.ru"), Arrays.asList(new Organization.Position("some edu position 1", "some edu description 1",LocalDate.of(1997, 9, 1), LocalDate.of(2001, 7, 1)))))));
 
-    private String FIRST_NAME;
-    private int FIRST_ID;
-    private Resume FIRST_RESUME;
-    public String SECOND_NAME;
-    private int SECOND_ID;
-    private Resume SECOND_RESUME;
-    private String THIRD_NAME;
-    private int THIRD_ID;
-    private Resume THIRD_RESUME;
-    private Integer MAX_LENGTH;
-    private String FOURTH_NAME;
-    private int FOURTH_ID;
+        SECOND_RESUME.setContacts(ContactType.PHONE, new Contact("7-34-72"));
+        SECOND_RESUME.setContacts(ContactType.EMAIL, new Contact("121235@mail.ru"));
+        SECOND_RESUME.setContacts(ContactType.GITHUB, new Contact("wwww.somegitlink_2.com"));
+        SECOND_RESUME.setContacts(ContactType.LINKEDIN, new Contact("www.somelinkedlink_2.com"));
+        SECOND_RESUME.setContacts(ContactType.STACKOVERFLOW, new Contact("www.newstakoverflow_2.com"));
+        SECOND_RESUME.setContacts(ContactType.SKYPE, new Contact("skype44"));
+        SECOND_RESUME.setContacts(ContactType.WEBSITE, new Contact("www.something_2.ru"));
+        SECOND_RESUME.setSections(SectionType.PERSONAL, new TextField("red, black"));
+        SECOND_RESUME.setSections(SectionType.ACHIEVEMENT, new TextField("finished RGATu"));
+        SECOND_RESUME.setSections(SectionType.OBJECTIVE, new ListField(Arrays.asList("some objective 2.1", "some objective 2.2")));
+        SECOND_RESUME.setSections(SectionType.QUALIFICATIONS, new ListField(Arrays.asList("some qualification 2.1", "some qualification 2.2")));
+        SECOND_RESUME.setSections(SectionType.EXPERIENCE, new OrganisationSection(Arrays.asList(new Organization(new UrlField("some org 2", "www.link_org_2.ru"), Arrays.asList(new Organization.Position("some org position 2", "some org description 2",LocalDate.of(2007, 2, 3), LocalDate.of(2019, 11, 5)))))));
+        SECOND_RESUME.setSections(SectionType.EDUCATION, new OrganisationSection(Arrays.asList(new Organization(new UrlField("some edu 2", "www.link_edu_2.ru"), Arrays.asList(new Organization.Position("some edu position 2", "some edu description 2",LocalDate.of(2001, 9, 1), LocalDate.of(2006, 7, 1)))))));
 
-    private ResumeTestData(){
-        FIRST_NAME = "Iban";
-        FIRST_ID = 11;
-        FIRST_RESUME = new Resume(FIRST_NAME, FIRST_ID);
-        SECOND_NAME = "Gena";
-        SECOND_ID = 22;
-        SECOND_RESUME = new Resume(SECOND_NAME, SECOND_ID);
-        THIRD_NAME = "Ibragimn";
-        THIRD_ID = 66;
-        THIRD_RESUME = new Resume(THIRD_NAME, THIRD_ID);
-        MAX_LENGTH = 10000;
-        FOURTH_NAME = "Georgy";
-        FOURTH_ID = 77;
-    }
+        THIRD_RESUME.setContacts(ContactType.PHONE, new Contact("7-11-98"));
+        THIRD_RESUME.setContacts(ContactType.EMAIL, new Contact("12843@mail.ru"));
+        THIRD_RESUME.setContacts(ContactType.GITHUB, new Contact("wwww.somegitlink_3.com"));
+        THIRD_RESUME.setContacts(ContactType.LINKEDIN, new Contact("www.somelinkedlink_3.com"));
+        THIRD_RESUME.setContacts(ContactType.STACKOVERFLOW, new Contact("www.newstakoverflow_3.com"));
+        THIRD_RESUME.setContacts(ContactType.SKYPE, new Contact("skype654"));
+        THIRD_RESUME.setContacts(ContactType.WEBSITE, new Contact("www.something_3.ru"));
+        THIRD_RESUME.setSections(SectionType.PERSONAL, new TextField("red, black, lemon"));
+        THIRD_RESUME.setSections(SectionType.ACHIEVEMENT, new TextField("finished PTU"));
+        THIRD_RESUME.setSections(SectionType.OBJECTIVE, new ListField(Arrays.asList("some objective 3.1")));
+        THIRD_RESUME.setSections(SectionType.QUALIFICATIONS, new ListField(Arrays.asList("some qualification 3.1", "some qualification 3.2")));
+        THIRD_RESUME.setSections(SectionType.EXPERIENCE, new OrganisationSection(Arrays.asList(new Organization(new UrlField("some org 3", "www.link_org_3.ru"), Arrays.asList(new Organization.Position("some org position 3", "some org description 3",LocalDate.of(2015, 12, 8), LocalDate.of(2019, 11, 22)))))));
+        THIRD_RESUME.setSections(SectionType.EDUCATION, new OrganisationSection(Arrays.asList(new Organization(new UrlField("some edu 3", "www.link_edu_3.ru"), Arrays.asList(new Organization.Position("some edu position 3", "some edu description 3",LocalDate.of(2008, 9, 1), LocalDate.of(2013, 7, 1)))))));
 
-    public static ResumeTestData getInstance() {
-        if (INSTANCE == null){
-            synchronized (ResumeTestData.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new ResumeTestData();
-                }
-            }
-            System.out.println("отработал getInstance");
-        }
-        return INSTANCE;
-    }
-
-    public static void main(String[] args) {
-        ResumeTestData instance = ResumeTestData.getInstance();
+        FOURTH_RESUME.setContacts(ContactType.PHONE, new Contact("2-35-75"));
+        FOURTH_RESUME.setContacts(ContactType.EMAIL, new Contact("125405@mail.ru"));
+        FOURTH_RESUME.setContacts(ContactType.GITHUB, new Contact("wwww.somegitlink_4.com"));
+        FOURTH_RESUME.setContacts(ContactType.LINKEDIN, new Contact("www.somelinkedlink_4.com"));
+        FOURTH_RESUME.setContacts(ContactType.STACKOVERFLOW, new Contact("www.newstakoverflow_4.com"));
+        FOURTH_RESUME.setContacts(ContactType.SKYPE, new Contact("skype2342"));
+        FOURTH_RESUME.setContacts(ContactType.WEBSITE, new Contact("www.something_4.ru"));
+        FOURTH_RESUME.setSections(SectionType.PERSONAL, new TextField("red, white"));
+        FOURTH_RESUME.setSections(SectionType.ACHIEVEMENT, new TextField("coming here"));
+        FOURTH_RESUME.setSections(SectionType.OBJECTIVE, new ListField(Arrays.asList("some objective 4.1", "some objective 4.2")));
+        FOURTH_RESUME.setSections(SectionType.QUALIFICATIONS, new ListField(Arrays.asList("some qualification 4.1", "some qualification 4.2")));
+        FOURTH_RESUME.setSections(SectionType.EXPERIENCE, new OrganisationSection(Arrays.asList(new Organization(new UrlField("some org 4", "www.link_org_4.ru"), Arrays.asList(new Organization.Position("some org position 4", "some org description 4",LocalDate.of(2010, 7, 8), LocalDate.of(2020, 12, 1)))))));
+        FOURTH_RESUME.setSections(SectionType.EDUCATION, new OrganisationSection(Arrays.asList(new Organization(new UrlField("some edu 4", "www.link_edu_4.ru"), Arrays.asList(new Organization.Position("some edu position 4", "some edu description 4",LocalDate.of(2008, 9, 1), LocalDate.of(2012, 7, 1)))))));
 
 
     }

@@ -13,19 +13,6 @@ import java.util.List;
 
 public abstract class CommonTest {
     private Storage storage;
-    private static final String FIRST_NAME = "Iban";
-    public static final int FIRST_ID = 11;
-    public static final Resume FIRST_RESUME = new Resume(FIRST_NAME, FIRST_ID);
-    public static final String SECOND_NAME = "Gena";
-    public static final int SECOND_ID = 22;
-    public static final Resume SECOND_RESUME = new Resume(SECOND_NAME, SECOND_ID);
-    public static final String THIRD_NAME = "Ibragimn";
-    public static final int THIRD_ID = 66;
-    public static final Resume THIRD_RESUME = new Resume(THIRD_NAME, THIRD_ID);
-    public static final Integer MAX_LENGTH = 10000;
-
-    public static final String FOURTH_NAME = "Georgy";
-    public static final int FOURTH_ID = 77;
 
     public CommonTest(Storage storage) {
         this.storage = storage;
@@ -35,9 +22,9 @@ public abstract class CommonTest {
     public void setUp() throws Exception {
         storage.deleteAll();
         Assertions.assertEquals(0, storage.sizeOfArray());
-        storage.save(FIRST_RESUME);
-        storage.save(SECOND_RESUME);
-        storage.save(THIRD_RESUME);
+        storage.save(ResumeTestData.FIRST_RESUME);
+        storage.save(ResumeTestData.SECOND_RESUME);
+        storage.save(ResumeTestData.THIRD_RESUME);
     }
 
     @Test
@@ -48,21 +35,21 @@ public abstract class CommonTest {
     @Test
     void updateIncorrect() {
         Assertions.assertThrows(NotExistStorageException.class, () -> {
-            storage.update(new Resume(FOURTH_NAME, FOURTH_ID));
+            storage.update(new Resume(ResumeTestData.FOURTH_NAME, ResumeTestData.FOURTH_ID));
         });
 
     }
 
     @Test
     void updateCorrect() {
-        storage.update(new Resume(FOURTH_NAME, SECOND_ID));
-        Assertions.assertEquals(storage.getByID(SECOND_ID).getFullName(), FOURTH_NAME);
+        storage.update(new Resume(ResumeTestData.FOURTH_NAME, ResumeTestData.SECOND_ID));
+        Assertions.assertEquals(storage.getByID(ResumeTestData.SECOND_ID).getFullName(), ResumeTestData.FOURTH_NAME);
     }
 
     @Test
     void saveIncorrect() {
         Assertions.assertThrows(ExistStorageException.class, () -> {
-            storage.save(new Resume(SECOND_NAME, THIRD_ID));
+            storage.save(new Resume(ResumeTestData.SECOND_NAME, ResumeTestData.THIRD_ID));
         });
     }
 
@@ -76,7 +63,7 @@ public abstract class CommonTest {
 
     @Test
     void checkCorrectSize() {
-        for (int i = 0; i < MAX_LENGTH - 3; i++) {
+        for (int i = 0; i < ResumeTestData.MAX_LENGTH - 3; i++) {
             storage.save(new Resume("TestCharset", i + 100));
             System.out.println("counter - " + i);
         }
@@ -93,7 +80,7 @@ public abstract class CommonTest {
     @Test
     void getAll() {
         List<Resume> testResumesList = storage.getAllSorted();
-        Assertions.assertEquals(testResumesList, Arrays.asList(FIRST_RESUME, SECOND_RESUME, THIRD_RESUME));
+        Assertions.assertEquals(testResumesList, Arrays.asList(ResumeTestData.FIRST_RESUME, ResumeTestData.SECOND_RESUME, ResumeTestData.THIRD_RESUME));
     }
 
     @Test
@@ -119,12 +106,12 @@ public abstract class CommonTest {
 
     @Test
     void deleteByIDCorrect() {
-        storage.deleteByID(SECOND_ID);
+        storage.deleteByID(ResumeTestData.SECOND_ID);
         Assertions.assertEquals(2, storage.sizeOfArray());
     }
 
     @Test
     void getIdByValue() {
-        int[] testIntArray = storage.getIdByValue(SECOND_NAME);
+        int[] testIntArray = storage.getIdByValue(ResumeTestData.SECOND_NAME);
     }
 }

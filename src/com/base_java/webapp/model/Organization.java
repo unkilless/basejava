@@ -14,6 +14,12 @@ public class Organization {
         this.positions = positions;
     }
 
+    public Organization(UrlField organisationInfo, List<Position> positions) {
+        Objects.requireNonNull(positions, "Pls enter your position");
+        this.organisationInfo = organisationInfo;
+        this.positions = positions;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,10 +50,62 @@ public class Organization {
         return positions;
     }
 
-    private class Position {
+    public static class Position {
         private String title;
         private String description;
         private LocalDate dateStart;
         private LocalDate dateEnd;
+
+        public Position(String title, String description, LocalDate dateStart, LocalDate dateEnd) {
+            Objects.requireNonNull(dateStart, "Pls enter start date");
+            Objects.requireNonNull(dateEnd, "Pls enter finish date");
+            Objects.requireNonNull(title, "Pls enter your title");
+            this.title = title;
+            this.description = description;
+            this.dateStart = dateStart;
+            this.dateEnd = dateEnd;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public LocalDate getDateStart() {
+            return dateStart;
+        }
+
+        public LocalDate getDateEnd() {
+            return dateEnd;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Position position = (Position) o;
+            return title.equals(position.title) &&
+                    Objects.equals(description, position.description) &&
+                    dateStart.equals(position.dateStart) &&
+                    dateEnd.equals(position.dateEnd);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(title, description, dateStart, dateEnd);
+        }
+
+        @Override
+        public String toString() {
+            return "Position{" +
+                    "title='" + title + '\'' +
+                    ", description='" + description + '\'' +
+                    ", dateStart=" + dateStart +
+                    ", dateEnd=" + dateEnd +
+                    '}';
+        }
     }
 }
