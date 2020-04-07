@@ -1,11 +1,14 @@
 package com.base_java.webapp.model;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class UrlListField extends AbstractSection {
+public class UrlListField extends AbstractSection implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     List<URL> urlList = new ArrayList<>();
 
     public UrlListField(List<URL> urlList) {

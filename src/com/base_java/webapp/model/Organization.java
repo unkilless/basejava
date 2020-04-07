@@ -1,11 +1,14 @@
 package com.base_java.webapp.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Organization {
+public class Organization implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private UrlField organisationInfo;
     private List<Position> positions;
 
@@ -49,7 +52,7 @@ public class Organization {
         return positions;
     }
 
-    public static class Position {
+    public static class Position implements Serializable{
         private String title;
         private String description;
         private LocalDate dateStart;
