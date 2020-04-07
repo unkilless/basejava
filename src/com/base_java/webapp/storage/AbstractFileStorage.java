@@ -3,8 +3,7 @@ package com.base_java.webapp.storage;
 import com.base_java.webapp.exception.StorageException;
 import com.base_java.webapp.model.Resume;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -33,11 +32,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         }
         else{
             for(File readableFile: listFiles){
-                try {
-                    resumesList.add(doRead(readableFile));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    resumesList.add(doGet(readableFile));
             }
         }
         return resumesList;
@@ -51,7 +46,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doUpdate(File file, Resume resumeForUpd) {
         try {
-            doWrite(resumeForUpd, file);
+            doWrite(resumeForUpd, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("Can't update resume", resumeForUpd.getId());
         }
@@ -61,16 +56,16 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected void doSave(File file, Resume savingResume) {
         try {
             file.createNewFile();
-            doWrite(savingResume, file);
         } catch (IOException e) {
             throw new StorageException("Can't create file", savingResume.getId());
         }
+        doUpdate(file, savingResume);
     }
 
     @Override
     protected Resume doGet(File file) {
         try {
-            return doRead(file);
+            return doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,6 +103,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         }
     }
 
-    protected abstract void doWrite(Resume r, File file) throws IOException;
-    protected abstract Resume doRead(File file) throws IOException;
+    protected abstract void doWrite(Resume resume, OutputStream os) throws IOException;
+
+    protected abstract Resume doRead(InputStream is) throws IOException;
 }

@@ -8,10 +8,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class CommonTest {
+    protected static final File STORAGE_DIR = new File("L:\\Repositories\\basejava\\Storage");
+
     private Storage storage;
 
     public CommonTest(Storage storage) {
