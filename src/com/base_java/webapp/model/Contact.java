@@ -1,8 +1,11 @@
 package com.base_java.webapp.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Contact {
+public class Contact implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String contact;
 
     public Contact(String contact) {

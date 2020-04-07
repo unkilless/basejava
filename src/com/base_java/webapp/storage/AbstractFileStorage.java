@@ -4,7 +4,7 @@ import com.base_java.webapp.exception.StorageException;
 import com.base_java.webapp.model.Resume;
 
 import java.io.*;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,7 +26,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected List<Resume> convertToListStorage() {
         File[] listFiles = directory.listFiles();
-        List<Resume> resumesList = Collections.emptyList();
+        List<Resume> resumesList = new ArrayList<>();
         if (listFiles == null){
             throw new StorageException("Empty directory", 0);
         }
@@ -48,7 +48,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             doWrite(resumeForUpd, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
-            throw new StorageException("Can't update resume", resumeForUpd.getId());
+            throw new StorageException("Can't write file", resumeForUpd.getId());
         }
     }
 
