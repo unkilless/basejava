@@ -1,6 +1,7 @@
 package com.base_java.webapp.model;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,10 +9,8 @@ public class Organization {
     private UrlField organisationInfo;
     private List<Position> positions;
 
-    public Organization(String organisation, String url, List<Position> positions) {
-        Objects.requireNonNull(positions, "Pls enter your position");
-        this.organisationInfo = new UrlField(organisation, url);
-        this.positions = positions;
+    public Organization(String organisation, String url, Position... positions) {
+        this(new UrlField(organisation, url), Arrays.asList(positions));
     }
 
     public Organization(UrlField organisationInfo, List<Position> positions) {

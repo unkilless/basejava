@@ -1,10 +1,15 @@
 package com.base_java.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class ListField extends AbstractSection {
     protected List<String> listField;
+
+    public ListField(String... items){
+        this (Arrays.asList(items));
+    }
 
     public ListField(List<String> listField) {
         this.listField = listField;

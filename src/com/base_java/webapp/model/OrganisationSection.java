@@ -1,10 +1,15 @@
 package com.base_java.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class OrganisationSection extends AbstractSection {
     protected List<Organization> listField;
+
+    public OrganisationSection(Organization... organisations){
+        this (Arrays.asList(organisations));
+    }
 
     public OrganisationSection(List<Organization> listField) {
         this.listField = listField;
