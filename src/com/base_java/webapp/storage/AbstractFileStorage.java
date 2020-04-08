@@ -67,9 +67,8 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             return doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new StorageException("Can't read file", 0, e);
         }
-        return null;
     }
 
     @Override

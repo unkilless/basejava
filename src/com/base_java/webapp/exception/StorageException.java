@@ -8,4 +8,8 @@ public class StorageException extends RuntimeException{
         this.id = id;
     }
 
+    public StorageException(String message, int id, Exception e) {
+        super(message, e);
+        this.id = id;
+    }
 }

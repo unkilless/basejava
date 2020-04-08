@@ -5,10 +5,9 @@ import com.base_java.webapp.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamStorage extends AbstractFileStorage {
-
-    protected ObjectStreamStorage(File directory) {
-        super(directory);
+public class ObjectStreamPathStorage extends AbstractPathStorage {
+    public ObjectStreamPathStorage(String dir) {
+        super(dir);
     }
 
     @Override
@@ -26,10 +25,5 @@ public class ObjectStreamStorage extends AbstractFileStorage {
         } catch (ClassNotFoundException e) {
             throw new StorageException("Error read resume", 0);
         }
-    }
-
-    @Override
-    public int[] getIdByValue(String findingStr) {
-        return new int[0];
     }
 }

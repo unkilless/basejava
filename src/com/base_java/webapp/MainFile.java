@@ -42,6 +42,22 @@ public class MainFile {
 //        return files;
     }
 
+    public static void printDirectoryDeeply(File dir, String tabulation) {
+        File[] files = dir.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    System.out.println(tabulation + "File: " + file.getName());
+                } else if (file.isDirectory()) {
+                    System.out.println(tabulation + "Directory: " + file.getName());
+                    tabulation += " ";
+                    printDirectoryDeeply(file, tabulation);
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         String filePath = ".\\.gitignore";
 
@@ -56,13 +72,16 @@ public class MainFile {
         File nextFile = null;
         List<File> listFiles = new ArrayList<>();
 
+        printDirectoryDeeply(dir, "");
+
         System.out.println(dir.isDirectory());
         String[] list = dir.list();
-        listFiles = getListFiles(dir);
+        //Закомменчено для тестов HW9
+/*        listFiles = getListFiles(dir);
         Iterator<File> iterator = listFiles.iterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
-        }
+        }*/
 
         try (
                 FileInputStream fis = new FileInputStream(filePath)) {
