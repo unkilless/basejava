@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class CommonTest {
+
+
     protected static final File STORAGE_DIR = new File("L:\\Repositories\\basejava\\Storage");
 
     private Storage storage;
@@ -72,7 +74,7 @@ public abstract class CommonTest {
         }
         System.out.println("Entered resumes - " + storage.sizeOfArray());
         String nameOfClass = storage.getClass().getName().toLowerCase();
-        if (!nameOfClass.contains("list") && !nameOfClass.contains("map") && !nameOfClass.contains("stream")) {
+        if (!nameOfClass.contains("list") && !nameOfClass.contains("map") && !nameOfClass.contains("stream") && !nameOfClass.contains("path")) {
             Assertions.assertThrows(StorageOverflow.class, () -> {
                 storage.save(new Resume("lastFullName", 25000));
             });

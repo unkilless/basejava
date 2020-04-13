@@ -80,4 +80,5 @@ public class Resume implements Comparable<Resume>, Serializable {
                 .compare(this, o);
 //        return this.id.compareTo(o.id); //оставил как наиболее подходещее условие сравнения
     }
+
 }
