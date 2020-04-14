@@ -12,7 +12,7 @@ public class XmlStreamSerializer implements AbstractStrategy {
     public XmlStreamSerializer() {
         xmlParser = new XmlParser(
                 Resume.class, Organization.class, UrlField.class,
-                OrganisationSection.class, TextField.class, ListField.class, Organization.Position.class);
+                OrganisationSection.class, TextField.class, ListField.class, Organization.Position.class, Contact.class, ContactType.class);
     }
 
     @Override
