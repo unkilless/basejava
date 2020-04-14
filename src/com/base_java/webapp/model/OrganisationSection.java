@@ -7,6 +7,9 @@ import java.util.Objects;
 public class OrganisationSection extends AbstractSection {
     protected List<Organization> listField;
 
+    public OrganisationSection() {
+    }
+
     public OrganisationSection(Organization... organisations){
         this (Arrays.asList(organisations));
     }

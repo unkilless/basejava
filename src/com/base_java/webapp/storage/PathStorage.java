@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class PathStorage extends AbstractStorage<Path> {
-    Path directory;
+    private Path directory;
 
     private AbstractStrategy strategy;
 
@@ -59,11 +59,6 @@ public class PathStorage extends AbstractStorage<Path> {
         } catch (IOException e) {
             throw new StorageException("Can't write file", resumeForUpd.getId(), e);
         }
-//        try {
-//            strategy.writeResume(resume, new BufferedOutputStream(new FileOutputStream(path.toFile())));
-//        } catch (IOException e) {
-//            throw new StorageException("IO error", resumeForUpd.getId(), e);
-//        }
     }
 
     @Override

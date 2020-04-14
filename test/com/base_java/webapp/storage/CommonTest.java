@@ -74,7 +74,11 @@ public abstract class CommonTest {
         }
         System.out.println("Entered resumes - " + storage.sizeOfArray());
         String nameOfClass = storage.getClass().getName().toLowerCase();
-        if (!nameOfClass.contains("list") && !nameOfClass.contains("map") && !nameOfClass.contains("stream") && !nameOfClass.contains("path")) {
+        if (!nameOfClass.contains("list") &&
+                !nameOfClass.contains("map") &&
+                !nameOfClass.contains("stream") &&
+                !nameOfClass.contains("path") &&
+                !nameOfClass.contains("file")) {
             Assertions.assertThrows(StorageOverflow.class, () -> {
                 storage.save(new Resume("lastFullName", 25000));
             });

@@ -1,9 +1,15 @@
 package com.base_java.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TextField extends AbstractSection {
     protected String textField;
+
+    public TextField() {
+    }
 
     public TextField(String textField) {
         this.textField = textField;
