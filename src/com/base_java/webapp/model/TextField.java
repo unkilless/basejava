@@ -34,8 +34,6 @@ public class TextField extends AbstractSection {
 
     @Override
     public String toString() {
-        return "TextField{" +
-                "textField='" + textField + '\'' +
-                '}';
+        return textField;
     }
 }

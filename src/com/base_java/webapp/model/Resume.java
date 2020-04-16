@@ -29,7 +29,7 @@ public class Resume implements Comparable<Resume>, Serializable {
         return id;
     }
 
-    public AbstractSection getSections(SectionType sectionType) {
+    /*public AbstractSection getSections(SectionType sectionType) {
         return sections.get(sectionType);
     }
 
@@ -42,6 +42,22 @@ public class Resume implements Comparable<Resume>, Serializable {
     }
 
     public void setContacts(ContactType contactType, Contact contact) {
+        contacts.put(contactType, contact);
+    }*/
+
+    public Map<SectionType, AbstractSection> getSections() {
+        return sections;
+    }
+
+    public void setSection(SectionType sectionType, AbstractSection section) {
+        sections.put(sectionType, section);
+    }
+
+    public Map<ContactType, Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContact(ContactType contactType, Contact contact) {
         contacts.put(contactType, contact);
     }
 
@@ -66,17 +82,9 @@ public class Resume implements Comparable<Resume>, Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
-        if (Objects.equals(id, resume.id))
-            System.out.println("true");
-        if(Objects.equals(fullName, resume.fullName))
-            System.out.println("true");
-        if(Objects.equals(contacts, resume.contacts))
-            System.out.println("true");
-        if(Objects.equals(sections, resume.sections))
-            System.out.println("true");
         return Objects.equals(id, resume.id) &&
                 Objects.equals(fullName, resume.fullName) &&
-                //Objects.equals(contacts, resume.contacts) &&
+                Objects.equals(contacts, resume.contacts) &&
                 Objects.equals(sections, resume.sections);
     }
 

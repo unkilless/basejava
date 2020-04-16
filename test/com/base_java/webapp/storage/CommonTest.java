@@ -47,8 +47,10 @@ public abstract class CommonTest {
 
     @Test
     void updateCorrect() {
-        storage.update(new Resume(ResumeTestData.FOURTH_NAME, ResumeTestData.SECOND_ID));
-        Assertions.assertEquals(storage.getByID(ResumeTestData.SECOND_ID).getFullName(), ResumeTestData.FOURTH_NAME);
+        Resume newResume = ResumeTestData.SECOND_RESUME;
+        newResume.setFullName(ResumeTestData.FOURTH_NAME);
+        storage.update(newResume);
+        Assertions.assertEquals(ResumeTestData.SECOND_RESUME, newResume);
     }
 
     @Test
@@ -96,7 +98,7 @@ public abstract class CommonTest {
     void getByID() {
         int gettingId = 11;
         Resume testResume = storage.getByID(gettingId);
-        Assertions.assertEquals(testResume, storage.getByID(gettingId));
+        Assertions.assertEquals(testResume, ResumeTestData.FIRST_RESUME);
     }
 
     @Test
