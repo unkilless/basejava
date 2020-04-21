@@ -4,29 +4,12 @@ import com.base_java.webapp.exception.StorageException;
 import com.base_java.webapp.model.*;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class DataStreamSerializer implements AbstractStrategy {
-
-    private void writeContactField(DataOutputStream dos, ContactType contactType, Contact contact) {
-        try {
-            switch (contactType) {
-                case PHONE:
-                case SKYPE:
-                case EMAIL:
-                case LINKEDIN:
-                case GITHUB:
-                case STACKOVERFLOW:
-                case WEBSITE:
-                    dos.writeUTF(String.valueOf(contactType));
-                    dos.writeUTF(String.valueOf(contact));
-                    break;
-                default:
-                    return;
-            }
-        } catch (IOException e) {
-            throw new StorageException("Cant write contact info", 0);
-        }
-    }
 
     private void writeSectionField(DataOutputStream dos, SectionType sectionType, AbstractSection section) {
         try {
@@ -39,19 +22,19 @@ public class DataStreamSerializer implements AbstractStrategy {
                 case OBJECTIVE:
                 case QUALIFICATIONS:
                     dos.writeUTF(String.valueOf(sectionType));
-                    ListField bufferListField = (ListField) section;
-                    bufferListField.getListField().forEach(s -> writeList(dos, s));
+                    dos.writeInt(((ListField) section).getListField().size());
+                    ((ListField) section).getListField().forEach(s -> writeList(dos, s));
                     break;
                 case EDUCATION:
                 case EXPERIENCE:
                     dos.writeUTF(String.valueOf(sectionType));
-                    OrganisationSection bufferOrganizationSection = (OrganisationSection) section;
-                    bufferOrganizationSection.getListField().forEach(organization -> writeOrganizationField(dos, organization));
+                    dos.writeInt(((OrganisationSection) section).getListField().size());
+                    ((OrganisationSection) section).getListField().forEach(organization -> writeOrganizationField(dos, organization));
                     break;
                 default:
                     return;
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new StorageException("Cant write section info", 0, e);
         }
     }
@@ -60,6 +43,7 @@ public class DataStreamSerializer implements AbstractStrategy {
         try {
             dos.writeUTF(organization.getOrganisationInfo().getName());
             dos.writeUTF(organization.getOrganisationInfo().getUrl());
+            dos.writeInt(organization.getPositions().size());
             organization.getPositions().forEach(position -> writePosition(dos, position));
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,12 +51,12 @@ public class DataStreamSerializer implements AbstractStrategy {
     }
 
     private void writePosition(DataOutputStream dos, Organization.Position position) {
-        try{
-            dos.writeUTF(String.valueOf(position.getDateStart()));
-            dos.writeUTF(String.valueOf(position.getDateEnd()));
+        try {
             dos.writeUTF(position.getTitle());
             dos.writeUTF(position.getDescription());
-        }catch(IOException e){
+            dos.writeUTF(String.valueOf(position.getDateStart()));
+            dos.writeUTF(String.valueOf(position.getDateEnd()));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -85,17 +69,31 @@ public class DataStreamSerializer implements AbstractStrategy {
         }
     }
 
+    @FunctionalInterface
+    private interface DataStreamWriter<T> {
+        void write(T t) throws IOException;
+    }
+
+    private <T> void writeContent(DataOutputStream dataOutputStream, Collection<T> collection, DataStreamWriter<T> writer) throws IOException {
+        dataOutputStream.writeInt(collection.size());
+        for (T element : collection) {
+            writer.write(element);
+        }
+    }
+
     @Override
     public void writeResume(Resume resume, OutputStream os) throws IOException {
         try (DataOutputStream dos = new DataOutputStream(os)) {
             dos.writeInt(resume.getId());
             dos.writeUTF(resume.getFullName());
-            dos.writeInt(resume.getContacts().size());
-            resume.getContacts().forEach((contactType, contact) -> writeContactField(dos, contactType, contact));
-            resume.getSections().forEach(((sectionType, section) -> writeSectionField(dos, sectionType, section)));
+            writeContent(dos, resume.getContacts().entrySet(), contact -> {
+                dos.writeUTF(contact.getKey().name());
+                dos.writeUTF(String.valueOf(contact.getValue().getContact()));
+            });
+            writeContent(dos, resume.getSections().entrySet(), section -> {
+                writeSectionField(dos, section.getKey(), section.getValue());
+            });
         }
-        // TODO implements sections
-
     }
 
     @Override
@@ -104,13 +102,85 @@ public class DataStreamSerializer implements AbstractStrategy {
             int id = dis.readInt();
             String fullName = dis.readUTF();
             Resume resume = new Resume(fullName, id);
-            int sizeBlock = dis.readInt();
-            for (int i = 0; i < sizeBlock; i++) {
-                ContactType bufferedContactType = ContactType.valueOf(dis.readUTF());
-                Contact bufferedContact = new Contact(dis.readUTF());
-                resume.setContact(bufferedContactType, bufferedContact);
-            }
+
+            readContent(dis, () -> {
+                resume.setContact(ContactType.valueOf(dis.readUTF()), new Contact(dis.readUTF()));
+            });
+            readContent(dis, () -> {
+                readSection(dis, resume);
+            });
             return resume;
         }
+    }
+
+    @FunctionalInterface
+    private interface SectionHandler<T> {
+        void handle() throws IOException;
+    }
+
+    private <T> void readContent(DataInputStream dataInputStream, SectionHandler<T> reader) throws IOException {
+        int sizeBlock = dataInputStream.readInt();
+        for (int i = 0; i < sizeBlock; i++) {
+            reader.handle();
+        }
+    }
+
+    private void readSection(DataInputStream dis, Resume resume) throws IOException {
+        SectionType sectionType = SectionType.valueOf(dis.readUTF());
+        switch (sectionType) {
+            case PERSONAL:
+            case ACHIEVEMENT:
+                resume.setSection(sectionType, new TextField(dis.readUTF()));
+                break;
+            case OBJECTIVE:
+            case QUALIFICATIONS:
+                resume.setSection(sectionType, new ListField(readElementList(dis, () -> dis.readUTF())));
+                break;
+            case EDUCATION:
+            case EXPERIENCE:
+/*                List<Organization> bufferedOrganizationList = new ArrayList<>();
+                int sizeBlockEduAndExp = dis.readInt();
+                for (int i = 0; i < sizeBlockEduAndExp; i++) {
+                    UrlField organizationInfo = new UrlField(dis.readUTF(), dis.readUTF());
+                    int sizeBlockPosition = dis.readInt();
+                    List<Organization.Position> bufferedPositionList = new ArrayList<>();
+                    for (int j = 0; j < sizeBlockPosition; j++) {
+                        bufferedPositionList.add(new Organization.Position(
+                                dis.readUTF(),
+                                dis.readUTF(),
+                                LocalDate.parse(dis.readUTF()),
+                                LocalDate.parse(dis.readUTF())));
+                    }
+                    bufferedOrganizationList.add(new Organization(organizationInfo, bufferedPositionList));
+                }
+                resume.setSection(sectionType, new OrganisationSection(bufferedOrganizationList));*/
+                resume.setSection(sectionType, new OrganisationSection(readElementList(dis, () ->
+                    new Organization(
+                            new UrlField(dis.readUTF(), dis.readUTF()),
+                            readElementList(dis, () -> new Organization.Position(dis.readUTF(), dis.readUTF(), readLocalDate(dis), readLocalDate(dis)))
+                    )
+                )));
+                break;
+            default:
+                throw new IllegalStateException(String.format("Некорректная секция: %s", sectionType));
+        }
+    }
+
+    private LocalDate readLocalDate(DataInputStream dataInputStream) throws IOException {
+        return LocalDate.parse(dataInputStream.readUTF());
+    }
+
+    @FunctionalInterface
+    private interface DataStreamReader<T> {
+        T read() throws IOException;
+    }
+
+    private <T> List<T> readElementList(DataInputStream dataInputStream, DataStreamReader<T> reader) throws IOException {
+        int size = dataInputStream.readInt();
+        List<T> list = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            list.add(reader.read());
+        }
+        return list;
     }
 }
